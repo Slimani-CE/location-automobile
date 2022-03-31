@@ -8,6 +8,6 @@ projet de fin d'étude: site web de gestion de location automobile
 </head>
 
 <body>
-	<a href="https://slimani-ce.github.io/location-automobile/">click here</a>
+	<a target="_blank" href="https://slimani-ce.github.io/location-automobile/">click here</a>
 </body>
 </html>
