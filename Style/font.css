@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "comic";
+    src: url("../Font/comic.ttf");
+}
+.harlow {
+    font-family: "comic";
+}
+@font-face {
+    font-family: "cubic";
+    src: url("../Font/cubic.ttf");
+}
+.harlow {
+    font-family: "cubic";
+}
+
+@font-face {
+    font-family: "calibri";
+    src: url("../Font/calibri.ttf");
+}
+.harlow {
+    font-family: "calibri";
+}

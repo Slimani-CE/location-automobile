@@ -1,0 +1,103 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body{
+    background-color: #3C3A4F;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+}
+
+
+.container{
+    /* background-color: tomato; */ /*test*/
+    width: 100%;
+    height: 100vh;
+}
+.header{
+    width: 100%;
+    height: 10%;
+    /* background-color: thistle;  */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: linear-gradient(135deg, rgb(50, 1, 70) 0% ,#617a91 100%) ; */ /*test*/
+}
+
+.logo{
+    width: 200px;
+    height: 100px;
+    padding-top: 10px;
+    /* background-color: blueviolet; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:  #FFC171;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: justify;
+    text-align: center;
+    font-weight:bolder;
+    font-family: cubic;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.35s;
+}
+
+.menu{
+    width: 900px;
+    height: 80px;
+    margin: 0 20px;
+    /* background-color: steelblue;  */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu-item a{
+    font-family: comic ;
+    font-size: 18px;
+    font-weight: bold;
+    color:#FFC171;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    padding-bottom: 10px;
+    text-decoration: none;
+    transition:all 0.35s;
+}
+.item-hover a:hover{
+    text-decoration: 4px underline #FFC171;
+    text-align: justify;
+}
+.active-page{
+    text-decoration: 4px underline #FFC171;
+}
+.esp-agence-btn{
+    width: 200px;
+    height: 50px;
+    background-color: #FFC171;
+    color: #3C3A4F;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 24px;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.35s ;
+}
+.esp-agence-btn:hover{
+    background-color: #7DFFA8;
+}
+.esp-agence-btn i{
+    font-size: 30px;
+}
+.esp-agence-btn span{
+    padding-bottom: 5px;
+}
