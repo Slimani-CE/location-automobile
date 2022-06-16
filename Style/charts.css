@@ -1,0 +1,14 @@
+.charts-container{
+    width: 100%;
+    height: 100vh;
+    /* background-color: tomato; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.chart-body{
+	width: 40vw;
+	height: 40vh;
+	position: relative;
+	/*background-color: #3c3a4f;*/
+}

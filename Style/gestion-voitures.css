@@ -1,0 +1,418 @@
+.gest-voitures-container{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: rgb(71, 255, 237); */
+}
+
+.header{
+    width: 90%;
+    height: 30px;
+    text-align: center;
+}
+.ajouteVoiture{
+    width: 100%;
+    height: 10%;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+}
+.ajouteVoiture button{  
+    width: fit-content;
+    height: 40px;
+    border-radius: 50px;
+    font-family: comic;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.35s;
+    margin: 0 10px;
+    padding: 0 20px;
+    padding-bottom: 5px;
+}
+.ajouteVoiture button:nth-child(1){
+    background-color: #FFC171;
+    color: #3C3A4F;
+}
+.ajouteVoiture button:nth-child(1):hover{
+    background-color: #7DFFA8;
+}
+.ajouteVoiture button:nth-child(2){
+    border: 3px solid #FFC171;
+    color: white;
+    background-color: #3C3A4F;
+}
+.ajouteVoiture button:nth-child(2):hover{
+    border-color: #7DFFA8;
+    background-color: #7DFFA8;
+    color: #3C3A4F;
+}
+.gest-container .body{
+    width: 90%;
+    height: 550px;
+    border-radius: 25px;
+    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+    /* background: linear-gradient(150deg ,#4985ff 0% ,#40D3DC 100%); */
+
+}
+.search-bar{
+    width: 100%;
+    height: 80px;
+    /* background-color:tan ; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search-input{
+    width: 30% ;
+    height: 60px;
+    /* background-color: blueviolet; */
+}
+.search-div{
+    position: relative;
+    width: 250px;
+    height: 50px;
+    /* background-color: #3C3A4F; */
+    display: flex;
+    flex-direction: column;
+    margin: 0 30px;
+}
+.search-div *{
+    width: 100% ;
+    height: 20px;
+    font-size: 15px;
+    font-family: calibri;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #002060;
+}
+
+.search-div input{   
+    box-shadow: 5px 5px 30px 0 rgb(0, 0, 0, 0.6);
+    height: 30px;
+    outline: none;
+    border: none;
+    padding: 0 10px;
+}
+.radioInput{
+    display: flex;
+    align-items: center;
+}
+.radioInput input{
+    width: 80px;
+    box-shadow: none;
+    margin-right: 10px;
+}
+.carsTabSection{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-items: center;
+    overflow: auto;
+    /* background-color: #002060; */
+}
+.carsTabSection table{
+    table-layout: fixed;
+    width: 1000px;
+    height: fit-content;
+}
+.carsTabSection table th{
+    font-weight: 200;
+}
+/* .carsTabSection tr td:nth-child(6){
+    width: 150px;
+} */
+.carsTabSection table *{
+    font-family: calibri, Helvetica, sans-serif;
+}
+.carsTabSection table td{
+    max-width: 100px;
+    font-size: 20px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.emptyCarsTable , .messageGarage{
+    width: 100%;
+    font-size: 50px;
+    color: #3C3A4F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    text-align: center;
+}
+.CarAddLayer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background-color: rgba(61, 59, 79, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CarAddSection{
+    position: relative;
+    width: 900px;
+    height: 500px;
+    border-radius: 25px;
+    box-shadow: 8px 8px 30px 0 rgb(0, 0, 0,0.5);
+    overflow: hidden;
+    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+}
+.CarAddSection-header {
+    position: relative;
+    width:100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: blueviolet;  */
+}
+.id-text{
+    width:100%;
+    /* background-color: tomato; */
+    width: fit-content;
+    font-family: comic;
+    font-size: 30px;
+    text-align: center;
+    color: #002060 ;
+    font-weight: bold;
+    border-bottom: 5px solid #7DFFA8;
+}
+.closeBtn{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: thistle;  */
+    cursor: pointer;
+    right: 0;
+}
+.fa-solid {
+    color: #3C3A4F;
+}
+.CarAddSection form{
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    /* background-color: tomato; */
+}
+.pairs{
+    margin: 0;
+    display: flex;
+    justify-content: space-around ;
+    align-items: center;
+}
+.pairs .search-input{
+    width: 350px;
+}
+.CarAddLayer .footer{
+    position: absolute;
+    bottom: 0;
+}
+.CarAddLayer .footer button:nth-child(2){
+    background-color: transparent;
+}
+.CarAddLayer .footer button:nth-child(2):hover{
+    background-color: transparent;
+    background-color: #7DFFA8;
+}
+.messageGarage{
+    color: #FFC171;
+    /* background-color: tomato; */
+}
+.consulterTd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.consulterBtn{
+    width: 80px;
+    height: 20px;
+    border-radius: 20px;
+    font-family: comic;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.35s;
+    margin: 0 10px;
+    padding: 0 20px;
+    padding-bottom: 5px;
+    border: solid 3px #FFC171;
+    color: #3C3A4F;
+    text-decoration: none;
+    padding-top: 5px;
+}
+.consulterBtn:hover{
+    background-color: #7DFFA8;
+    border-color: #7DFFA8;
+}
+.carStatisticSectionBody{
+    width: 100%;
+    height: 100%;
+    /* background-color: #002060; */
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dateTableContainer{
+    /* background-color: #3C3A4F; */
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.tableTitle{
+    width: 100%;
+    height: 40px;
+    /* background-color: #7DFFA8; */
+    font-size: 25px;
+    color: #002060;
+    text-align: center;
+}
+.dateTableContainer table{
+    table-layout: fixed;
+    margin: 0;
+}
+.dateTableContainer table th,
+.dateTableContainer table td{
+    width: 80px;
+    font-family: calibri;
+    font-weight: 100;
+    font-size: 18px;
+    text-align: center;
+}
+.tableSearchContainer{
+    width: 100%;
+    height: 80px;
+    /* background-color: #FFC171; */
+    display: flex;
+    align-items: center;
+}
+
+.charts-container{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-evenly;
+    /* background-color: #7DFFA8; */
+    /* padding: 50px; */
+    margin: 50px;
+}
+.chart-body{
+    width: 600px;
+    /* height: fit-content; */
+}
+.chart-2{
+    max-width: 500px;
+}
+
+.consultation-voiture{
+    overflow: hidden;
+}
+.info-container{
+    overflow: auto;
+    /* background-color: #002060; */
+    height: 500px;
+}
+.confirm-btn{
+    width: 200px;
+    /* background-color: #002060; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.modDon-btn{
+    width: fit-content;
+    padding: 5px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    margin: 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: transparent ;
+    border: 3px solid #FFC171;
+}
+
+.modDon-btn:hover{
+    background-color: #7DFFA8;
+    border: 3px solid #7DFFA8;
+}
+.vid-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 80%;
+    height: fit-content ;
+    /* overflow: auto; */
+    /* background-color: #4985ff; */
+}
+.vid-table{
+    width: 100%;
+    height: 700px;
+    /* background-color: #FFC171; */
+}
+.eng-btn button{
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 5px 15px;
+    color: #002060;
+}
+.vid-footer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.vid-footer div{
+    margin: 15px 5px;
+}
+.close-btn{
+    font-size: 15px;
+    color: #002060;
+    border: 3px solid #FFC171;
+    width: fit-content;
+    padding: 5px 15px;
+    height: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.close-btn:hover{
+    border: 3px solid #7DFFA8;
+    background-color: #7DFFA8;
+}
+
+
+
+.hidden{
+    display: none;
+}

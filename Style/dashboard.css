@@ -1,0 +1,206 @@
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body{
+    background-color: #3C3A4F;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment: fixed;   
+    /* background-image: url("../Media/Images/background_1.jpg"); */
+
+}
+.container{
+    /* background-color: tomato;  */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.dashboard-panel{
+    width: 250px ;
+    height: 100vh;
+    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+}
+.panel-header{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    font-family: comic;
+    color: #3C3A4F;
+    background-color: #FFC171;
+}
+.panel-body{
+    width: 100%;
+    height: fit-content;
+    /* background-color: #4985ff; */
+    margin-top: 50px;
+}
+.panel-body a{
+    text-decoration: none;
+}
+.panel-item{
+    width: 100%;
+    height: 45px;
+    /* background-color: #FFC171; */
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-family: calibri;
+    font-weight: bold;
+    color: #002060;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.panel-item span{
+    margin-left: 20px;
+}
+.checked-service , .panel-item:hover{
+    background-color: #3C3A4F;
+    color: white;
+}
+.dashboard-body{
+    width: 80%;
+    flex-grow: 1;
+    /* background-color: tomato; */
+}
+.body-header{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    /* background-color: tomato; */
+}
+.account-menu{
+    position: absolute;
+    width: 180px;
+    height: 40px;
+    background-color: #7DFFA8 ;
+    border-radius: 20px;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.account-menu span{
+    position: relative;
+    font-family: calibri;
+    font-size: 20px;
+    font-weight: bold;
+    /* height: 100%; */
+    width: 100%;
+    color: #3C3A4F;
+    /* background-color: tomato; */
+    overflow: hidden;
+    display: flex;
+    align-items: center; 
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+.account-menu .icon-div{
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 100%;
+    margin-left: 5px;
+    /* background-color: tomato; */
+}
+.account-menu i{
+    font-size: 30px ;
+    margin: 0 10px;
+    color: #3C3A4F;
+    cursor: pointer;
+}
+.menu-drop-down{
+    position: absolute;
+    width:180px;
+    height: fit-content;
+    background-color: #7DFFA8;
+    border-radius: 20px;
+    right: 10px;
+    top: 60px;
+    z-index: 1;
+}
+.hidden{
+    display: none;
+}
+.menu-item {
+    width: 100%;
+    font-size: 20px;
+    font-family: calibri;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 0;
+}
+.menu-item a{
+    color: #3C3A4F;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+}
+.menu-item a:hover{
+    color: white;
+}
+.main-body{
+    /* position: absolute; */
+    height: 90vh;
+    /* background-color:#7DFFA8; */
+    color: #FFC171;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    font-family: calibri;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+.hidden-service{
+    display: none;
+}
+.statisticSectionLayer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background-color: rgba(61, 59, 79, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.statisticSectionContainer{
+    position: relative;
+    width: 90%;
+    height: 90vh;
+    border-radius: 25px;
+    box-shadow: 8px 8px 30px 0 rgb(0, 0, 0,0.5);
+    overflow: hidden;
+    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+}
+.statisticSectionHeader {
+    position: relative;
+    width:100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: blueviolet;  */
+}
+.sectionTitle{
+    width:100%;
+    /* background-color: tomato; */
+    width: fit-content;
+    font-family: comic;
+    font-size: 30px;
+    text-align: center;
+    color: #002060 ;
+    font-weight: bold;
+    border-bottom: 5px solid #7DFFA8;
+}

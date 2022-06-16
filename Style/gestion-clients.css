@@ -1,0 +1,59 @@
+
+.gest-clients-container{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: rgb(71, 255, 237); */
+}
+
+.clientsTabSection{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    justify-items: center;
+    overflow: auto;
+    /* background-color: #002060; */
+}
+.clientsTabSection table{
+    width: 1200px;
+    height: fit-content;
+    table-layout: fixed;
+}
+/* .clientsTabSection tr td:nth-child(6){
+    width: 100px;
+} */
+.clientsTabSection table *{
+    font-family: calibri, Helvetica, sans-serif;
+}
+.clientsTabSection table td{
+    max-height: 30px;
+    max-width: 100px;
+    font-size: 20px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;   
+    text-overflow: ellipsis;
+    /* background-color: tomato; */
+}
+.clientsTabSection table th{
+        font-weight: 400;
+}
+.emptyClientsTable , .messageGarage{
+    width: 100%;
+    font-size: 50px;
+    color: #3C3A4F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    text-align: center;
+}
+.hidden{
+    display: none;
+}
+.info-client{
+    color: #3C3A4F;
+    /* background-color: blue; */
+}

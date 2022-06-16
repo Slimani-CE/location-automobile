@@ -1,0 +1,144 @@
+<div data-id="gest-reservation" class="main-body hidden-service">
+
+    <div class="gest-container gest-reservations-container">
+        <div class="header">
+            <div class="ajouteVoiture">
+                <button onclick="openCarAdd()"><a href="dashboard.php?page=reservation">Ajouter une reservation</a></button>
+                <button>Statistiques</button>
+            </div>
+        </div>
+
+        <div onclick="reservationsSearchBarListner()" class="body consultation-reservation">
+            <div onkeyup="reservationsSearchBarListner()" class="search-bar">
+                <div class="search-input">
+                    <div class="search-div">
+                        <label for="searchByDepartDate">Date de départ</label>
+                        <input onclick="emptyInput(this)" placeholder="Date de départ" type="date" id="searchByDepartDate" name="searchByDepartDate">
+                    </div> 
+                </div>
+                <div class="search-input">
+                    <div class="search-div">
+                        <label for="searchByReturnDate">Date de retour</label>
+                        <input onclick="emptyInput(this)" placeholder="Date de retour" type="date" id="searchByReturnDate" name="searchByReturnDate">
+                    </div>
+                </div>
+                <div class="search-input">
+                    <div style="width: 300px;" class="search-div">
+                        <label>Status</label>
+                        <div class="radioInput">
+                            <input placeholder="Tous" id="reservation-tous" name="reservation-status" value="Tous" type="radio" checked>  
+                            <label for="reservation-tous">Tous</label>
+                            <input placeholder="" id="reservation-en-cours" name="reservation-status" value="En cours" type="radio">
+                            <label for="reservation-en-cours">En cours</label>
+                            <input placeholder="ancien" id="reservation-ancien" name="reservation-status" value="Ancien" type="radio">
+                            <label for="reservation-ancien">Ancien</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="reservationsTabSection">
+                <div class="emptyReservationsTable hidden">
+                    aucune client n'est correspondante aux valeurs entrées
+                </div>
+                <table id="reservation-table">
+                        <!--      Affichage de liste des employees      -->
+                        
+                </table>
+            </div>
+        </div>
+
+        <!-- Consultation des voitures -->
+        <div id="cons-reservation" class="body consultation-reservation hidden">
+            <div class="info-header">
+                <div onclick="closeConsultation('consultation-reservation')" class="closeBtn closeConsultation">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+            </div>
+            <div class="info-container">
+                
+                <div class="info-reservation">Consultaion de reservation</div>
+                <div class="res-info">
+                    
+                    <div class="res-info-child">
+                        <div class="input-div">
+                            <label for="res-client">Client</label>
+                            <div class="info-div" required id="res-client" placeholder="Client" name="res-client" type="text"><a href="">Client</a></div>
+                        </div>
+                        <div class="input-div">
+                            <label for="res-voiture">Voiture</label>
+                            <div class="info-div" required id="res-voiture" placeholder="Voiture" name="res-voiture" type="text"><a href="">Voiture</a></div>
+                        </div>
+                    </div>
+
+                    <div class="res-status">
+                        <div class="input-div">
+                            <label for="res-status">Status de reservation</label>
+                            <select required id="res-status" placeholder="Status de reservation" name="res-status" type="text">
+                                <option value="En cours">En cours</option>
+                                <option value="Ancien">Ancien</option>
+                            </select>
+                        </div>
+                        <div class="input-div responde-div hidden">
+                            <span class="resp-txt">Enregistrer les modifications</span>
+                            <div class="resp-div">
+                                <div class="resp-btn yes-btn">Oui</div>
+                                <div class="resp-btn no-btn">Non</div>
+                            </div>
+                        </div>
+                        <div class="input-div dec-retour-div hidden">
+                            <span class="resp-txt">voulez-vous déclarer le retour ?</span>
+                            <div class="resp-div">
+                                <div class="resp-btn yes-dec-btn">Oui</div>
+                                <div class="resp-btn no-dec-btn">Non</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+                <div class="cont-retour hidden">
+                    <div class="info-reservation">Declaration du retour</div>
+                    <div class="res-info res-retour">
+                    
+                        <div class="res-info-child">
+                            <div class="input-div">
+                                <label for="res-etatVoiture">État avant la reservation</label>
+                                <input disabled id="res-etatVoiture" placeholder="État avant la reservation" name="res-etatVoiture" type="text">
+                            </div>
+                            <div class="input-div">
+                                <label for="res-etatActuel">État actuel</label>
+                                <input class="res-input info-div" required id="res-etatActuel" placeholder="État actuel" name="res-etatActuel" type="text">
+                            </div>
+                            <div class="input-div">
+                                <label for="res-dateRetour">Date de retour</label>
+                                <input class="res-input info-div" required id="res-dateRetour" placeholder="Date de retour" name="res-dateRetour" type="date"> 
+                            </div>
+                        </div>
+                        <div class="res-info-child">
+                            <div class="input-div">
+                                <label for="res-etatPaiement">État de paiement</label>
+                                <input disabled id="res-etatPaiement" placeholder="État de paiement" name="res-etatPaiement" type="text">
+                            </div>
+                            <div class="input-div">
+                                <label for="res-statusVoiture">Status de voiture</label>
+                                <input class="res-input info-div" required id="res-statusVoiture" placeholder="Voiture" name="res-statusVoiture" type="text"> 
+                            </div>
+                            <div class="input-div dec-retour-div">
+                                <!-- <span class="resp-txt">Enregistrer les modifications</span> -->
+                                <div class="resp-div">
+                                    <div class="resp-btn yes-eng-btn">Enregistrer</div>
+                                    <div class="resp-btn no-eng-btn">Sortie</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

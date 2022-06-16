@@ -6,4 +6,3 @@ function openUpdates(){
 function closeUpdates(closBtn){
     closBtn.parentNode.parentNode.parentNode.style="display:none";
 }
-

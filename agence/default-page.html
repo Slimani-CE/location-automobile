@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../Style/font.css">
+    <link rel="stylesheet" href="../Style/updates.css">
+    <link rel="stylesheet" href="../Style/dashboard.css">
+    <link rel="stylesheet" href="../Style/gestion-voitures.css">
+    <link rel="stylesheet" href="../Style/gestion-clients.css">
+    <script src="../Script/updates.js"></script>
+    <script src="../Script/dashboard.js"></script>
+    <script src="../Script/popups.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="../Script/popupMessage.js"></script> -->
+    <script src="../Script/gestionVoiture.js"></script>
+    <script src="../Script/gestionClient.js"></script>
+    <title> Home page </title>
+</head>
+<body onload="checkMainData();tableWaiter();">
+
+
+
+    <div class="container">
+
+        <div class="dashboard-panel">
+
+            <div class="panel-header">
+                <span>Dashboard</span>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="panel-item checked">
+                    <span>Réservation rapide</span>
+                </div>
+
+                <div class="panel-item admin">
+                    <span>Gestion des employés</span>
+                </div>
+
+                <div class="panel-item">
+                    <span>Gestion des clients</span>
+                </div>
+
+                <div class="panel-item">
+                    <span>Gestion des voitures</span>
+                </div>
+
+                <div class="panel-item">
+                    <span>Gestion de réservation</span>
+                </div>
+
+                <div class="panel-item">
+                    <span>Newsletter</span>
+                </div>
+
+                <div class="panel-item">
+                    <span>Offres</span>
+                </div>
+
+                <div class="panel-item">
+                    <span>Formation & Support</span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="dashboard-body">
+
+            <div class="body-header">
+                <div class="account-menu">
+                    <i onclick="actionMenu()" class="fa-solid fa-bars"></i>
+                    <span>Khaled</span>
+                </div>
+                <div class="menu-drop-down hidden">
+                    <div class="menu-item">
+                        <a href="">Mon compte</a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="../espace-agence.php">Se déconnecter</a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="">Assistant</a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div data-id="gest-clients" class="main-body">
+
+                <div class="gest-voitures-container">
+                    <div class="header">
+                        <div class="ajouteVoiture">
+                            <button onclick="openCarAdd()">Ajouter une voiture</button>
+                            <button>Statistiques</button>
+                        </div>
+                    </div>
+            
+                    <div class="body">
+                        <div onkeyup="clientsSearchBarListner()" onclick="clientsSearchBarListner()" class="search-bar">
+                            <div class="search-input">
+                                <div class="search-div">
+                                    <label for="searchByName">Le nom</label>
+                                    <input onclick="emptyInput(this)" placeholder="Le nom" id="searchByName" name="searchByName">
+                                </div>
+                            </div>
+                            <div class="search-input">
+                                <div class="search-div">
+                                    <label for="searchById">Identité</label>
+                                    <input onclick="emptyInput(this)" placeholder="Identité" id="searchById" name="searchById">
+                                </div>
+                            </div>
+                            <div class="search-input">
+                                <div class="search-div">
+                                    <label>Status</label>
+                                    <div class="radioInput" onclick="clientsSearchBarListner()">
+                                        <input placeholder="Tous" id="client-tous" name="client-status" value="Tous" type="radio" checked>  
+                                        <label for="client-tous">Tous</label>
+                                        <input placeholder="Inactive" id="client-inactive" name="client-status" value="Inactive" type="radio">
+                                        <label for="client-inactive">Inactive</label>
+                                        <input placeholder="client-active" id="client-active" name="client-status" value="Active" type="radio">
+                                        <label for="client-active">Active</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="clientsTabSection">
+                            <div class="emptyClientsTable hidden">
+                                aucune client n'est correspondante aux valeurs entrées
+                            </div>
+                            <table id="client-table">
+                                    <!--      Affichage de liste des employees      -->
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+                
+                    
+        </div>
+    </div>
+    <script src="../Script/database.js"></script>
+
+</body>
+</html>
