@@ -11,7 +11,7 @@
 
 <div data-id="reservation" class="main-body hidden-service">
     <form method="POST" action="ajouteReservation.php" class="reservation">
-        <div class="body">
+        <div class="res-body">
 
 
             <div class="detail-div">
@@ -121,17 +121,39 @@
 
                             <div class="input-div">
                                 <label for="voitureLoue">Voiture</label>
-                                <select required id="voitureLoue" onmousedown="loadFreeCars()" placeholder="Voiture" name="codeVoiture">
+                                <select  required id="voitureLoue" onmousedown="loadFreeCars()" placeholder="Voiture" name="codeVoiture">
                                     
                                     <!-- <?php
                                         while($tableListVoiture = mysqli_fetch_array($donneesListVoiture)){
                                             echo "
-                                                <option value=\"".$tableListVoiture["nomVoiture"]."\" > ".$tableListVoiture["nomVoiture"]." </option>
+                                                <option data-codeVoiture='loadCarPreview(\"".$tableListVoiture["codeVoiture"]."\")' value=\"".$tableListVoiture["nomVoiture"]."\" > ".$tableListVoiture["nomVoiture"]." </option>
 
                                             ";
                                         }
                                     ?> -->
                                 </select>
+                            </div>
+                            <div class="carData">
+                                <div class="imagePreview">
+                                    <img src="" alt="Aperçu des images" id="car-preview__image">
+                                    <span id="car-preview__default-text">Aperçu d'image de voiture</span>
+                                </div>
+                                <div class="resCarInfo">
+                                    <table>
+                                        <tr>
+                                            <th>Marque</th>
+                                            <th>Modele</th>
+                                            <th>Immatricule</th>
+                                            <th>Prix/jour</th>
+                                        </tr>
+                                        <tr>
+                                            <td id="marqueVoiture">Marque</td>
+                                            <td id="modelVoiture">Model</td>
+                                            <td id="immatriculeVoiture">Immatricule</td>
+                                            <td id="prixParJourVoiture">Prix/jour</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                             
 
@@ -182,8 +204,8 @@
                                 </select>
                             </div>
                             <div class="input-div">
-                                <label for="etatVehicule">État de vehicule</label>
-                                <input required id="etatVehicule" placeholder="État de vehicule" name="etatVehicule" type="text">
+                                <label for="prixParJourVoiture">Prix par jour</label>
+                                <input readonly id="prixParJourVoiture" placeholder="Prix par jour" name="prixParJourVoiture" type="text">
                             </div>
 
                         </div>
@@ -191,13 +213,13 @@
                         <div class="section">
 
                             <div class="input-div">
-                                <label for="prixParJourVoiture">Prix par jour</label>
-                                <input readonly id="prixParJourVoiture" placeholder="Prix par jour" name="prixParJourVoiture" type="text">
-                            </div>
-                            <div class="input-div">
                                 <label for="totalPaiement">total TTC</label>
                                 <input readonly id="totalPaiement" placeholder="total TTC" name="totalPaiement" type="text">
                             </div>  
+                            <div class="input-div">
+                                <label for="avancePaiement">Avance</label>
+                                <input required id="avancePaiement" placeholder="Avance" name="avancePaiement" type="text">
+                            </div>
                             <div class="input-div">
                                 <label for="methodePaiement">Methode de paiement</label>
                                 <select required id="methodePaiement" placeholder="Methode de paiement" name="methodePaiement">
@@ -212,10 +234,6 @@
 
                         <div class="section">
 
-                            <div class="input-div">
-                                <label for="avancePaiement">Avance</label>
-                                <input required id="avancePaiement" placeholder="Avance" name="avancePaiement" type="text">
-                            </div>
                             <div class="input-div">
                                 <label for="prenomPersonnel">L'agent commercial</label>
                                 <input required id="prenomPersonnel" disabled placeholder="L'agent commercial" type="text">
@@ -234,7 +252,7 @@
                                 
 
 
-        <div class="footer">
+        <div class="footer btn-sect">
             <button class="submit" type="submit">Enregistrer</button>
             <button class="reset" type="reset">Reset</button>
         </div>

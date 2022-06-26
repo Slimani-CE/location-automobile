@@ -1,3 +1,40 @@
+// Car images traitement
+function loadCarImages(){
+    const inpFile = document.getElementById("imagesVoiture");
+    const previewContainer = document.getElementById("previewContainer");
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+    const defaultText = previewContainer.querySelector(".image-preview__default-text");
+    let resetBtn = document.getElementById("resetCarInfo");
+
+    inpFile.addEventListener("change",function(){
+
+        const file = this.files[0];
+        if(file){
+            const reader = new FileReader();
+            console.log(reader);
+
+            defaultText.style.display="none"; 
+            previewImage.style.display="block";
+
+
+            reader.addEventListener("load",function(){
+                previewImage.setAttribute("src",this.result);
+            });
+            
+            reader.readAsDataURL(file);
+        }
+        
+    });
+    
+    // reset preview
+    resetBtn.addEventListener("click",function(){
+        previewImage.setAttribute("src","");
+        defaultText.style.display="block"; 
+        previewImage.style.display="none";
+    });
+}
+
+
 // loadConsVoiture() will load car info for consultation
 function loadConsVoiture(codeVoiture){
     console.log("DEBUG: loadConsVoiture() | codeVoiture: "+codeVoiture);
@@ -73,16 +110,8 @@ function showConfirmBtn(){
 }
 // submit new car's data to database
 function submitCarData(){
-    let vo_marque = document.getElementById("vo-marque").value; 
-    let vo_model = document.getElementById("vo-model").value; 
-    let vo_dateCirculaire = document.getElementById("vo-dateCirculaire").value; 
-    let vo_kilometrage = document.getElementById("vo-kilometrage").value; 
-    let vo_carburant = document.getElementById("vo-carburant").value; 
-    let vo_prixParJour = document.getElementById("vo-prixParJour").value; 
-    let vo_codeVoiture = document.getElementById("vo-codeVoiture").value;  
-    if( vo_marque && vo_model && vo_dateCirculaire && vo_kilometrage && vo_carburant && vo_prixParJour && vo_codeVoiture ){
-        window.open("../agence/miseAJourVoiture.php?"+`codeVoiture=${vo_codeVoiture}&marqueVoiture=${vo_marque}&modelVoiture=${vo_model}&dateCirculaireVoiture=${vo_dateCirculaire}&kilometrageVoiture=${vo_kilometrage}&carburantVoiture=${vo_carburant}&prixParJourVoiture=${vo_prixParJour}`,"_self");
-    }
+    let btn = document.getElementById("sub-vo-btn");
+    btn.click();
 }
 // loadCarsTable() will load all cars table
 function loadCarsTable(){

@@ -16,7 +16,7 @@
     background-color: tomato;
 }
 .reservationsTabSection{
-    width: 100%;
+    width: 95%;
     height: 90%;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@
     /* background-color: #002060; */
 }
 .reservationsTabSection table{
-    width: 95%;
+    width: 100%;
     margin: 0 ;
     padding: 0;
     height: fit-content;
@@ -121,6 +121,6 @@
 }
 .ajouteVoiture a{
     text-decoration: none;
-    color: #3C3A4F;
-    height: 100%;
+    color: white;
+    /* height: 100%; */
 }

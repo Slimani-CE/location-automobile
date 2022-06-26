@@ -6,7 +6,7 @@
     $dateCirculaireVoiture = $_POST["dateCirculaireVoiture"];
     $prixParJourVoiture = $_POST["prixParJourVoiture"];
     $kilometrageVoiture = $_POST["kilometrageVoiture"];
-    $imagesVoiture = $_POST["imagesVoiture"];
+    $imagesVoiture = file_get_contents($_FILES['image']["tmp_name"]);
     $dateVignetteVoiture = $_POST["dateVignetteVoiture"];
     $totalVignetteVoiture = $_POST["totalVignetteVoiture"];
     $alertVignetteVoiture = $_POST["alertVignetteVoiture"];

@@ -129,19 +129,19 @@
                 </div>
             </div>
 
-            <form action="./ajouteVoiture.php" method="POST">
+            <form action="./ajouteVoiture.php" method="POST" enctype="multipart/form-data">
 
                 <div class="pairs">
                     <div class="search-input">
                         <div class="search-div">
                             <label for="immatriculationVoiture">Matricule</label>
-                            <input id="immatriculationVoiture" placeholder="Matricule" name="immatriculationVoiture" type="text">
+                            <input required id="immatriculationVoiture" placeholder="Matricule" name="immatriculationVoiture" type="text">
                         </div>
                     </div>
                     <div class="search-input">
                         <div class="search-div">
                             <label for="marqueVoiture">La marque</label>
-                            <input id="marqueVoiture" placeholder="La marque" name="marqueVoiture" type="text">
+                            <input required id="marqueVoiture" placeholder="La marque" name="marqueVoiture" type="text">
                         </div>
                     </div>
                 </div>
@@ -149,13 +149,13 @@
                     <div class="search-input">
                         <div class="search-div">
                             <label for="modelVoiture">Model</label>
-                            <input id="modelVoiture" placeholder="Model" name="modelVoiture" type="text">
+                            <input required id="modelVoiture" placeholder="Model" name="modelVoiture" type="text">
                         </div>
                     </div>
                     <div class="search-input">
                         <div class="search-div">
                             <label for="carburantVoiture">Carburant</label>
-                            <input id="carburantVoiture" placeholder="Carburant" name="carburantVoiture" type="text">
+                            <input required id="carburantVoiture" placeholder="Carburant" name="carburantVoiture" type="text">
                         </div>  
                     </div>
                 </div>
@@ -164,13 +164,13 @@
                     <div class="search-input">
                         <div class="search-div">
                             <label for="dateCirculaireVoiture">Date circulaire</label>
-                            <input id="dateCirculaireVoiture" placeholder="Date circulaire" name="dateCirculaireVoiture" type="date">
+                            <input required id="dateCirculaireVoiture" placeholder="Date circulaire" name="dateCirculaireVoiture" type="date">
                         </div>
                     </div>
                     <div class="search-input">
                         <div class="search-div">
                             <label for="prixParJourVoiture">Prix/Jour</label>
-                            <input id="prixParJourVoiture" placeholder="Prix/Jour" name="prixParJourVoiture" type="text">
+                            <input required id="prixParJourVoiture" placeholder="Prix/Jour" name="prixParJourVoiture" type="text">
                         </div>  
                     </div>
                 </div>
@@ -178,13 +178,13 @@
                     <div class="search-input">
                         <div class="search-div">
                             <label for="kilometrageVoiture">Kilometrage</label>
-                            <input id="kilometrageVoiture" placeholder="Kilometrage" name="kilometrageVoiture" type="text">
+                            <input required id="kilometrageVoiture" placeholder="Kilometrage" name="kilometrageVoiture" type="text">
                         </div>
                     </div>
                     <div class="search-input">
                         <div class="search-div">
                             <label for="dateVignetteVoiture">Date de vignette</label>
-                            <input id="dateVignetteVoiture" placeholder="Date de vignette" name="dateVignetteVoiture" type="date">
+                            <input required id="dateVignetteVoiture" placeholder="Date de vignette" name="dateVignetteVoiture" type="date">
                         </div>  
                     </div>
                 </div>
@@ -192,13 +192,13 @@
                     <div class="search-input">
                         <div class="search-div">
                             <label for="totalVignetteVoiture">Total de vignette</label>
-                            <input id="totalVignetteVoiture" placeholder="Total de vignette" name="totalVignetteVoiture" type="text">
+                            <input required id="totalVignetteVoiture" placeholder="Total de vignette" name="totalVignetteVoiture" type="text">
                         </div>
                     </div>
                     <div class="search-input">
                         <div class="search-div">
                             <label for="alertVignetteVoiture">Alert de vignette</label>
-                            <input id="alertVignetteVoiture" placeholder="Alert de vignette" name="alertVignetteVoiture" type="number">
+                            <input required id="alertVignetteVoiture" placeholder="Alert de vignette" name="alertVignetteVoiture" type="number">
                         </div>  
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                     <div class="search-input">
                         <div class="search-div">
                             <label style="font-size: 13px;font-weight:bold;" for="kilometrageVidVoiture">kilomètres restant pour la vidange</label>
-                            <input id="kilometrageVidVoiture" placeholder="Kilometrage restant" name="kilometrageVidVoiture" type="text">
+                            <input required id="kilometrageVidVoiture" placeholder="Kilometrage restant" name="kilometrageVidVoiture" type="text">
                         </div>  
                     </div>
                     <div class="search-input">
@@ -216,10 +216,16 @@
                         </div>  
                     </div>
                 </div>
+                <div class="uploaded-img">
+                    <div class="image-container" id="previewContainer">
+                        <img src="" alt="Aperçu des images" class="image-preview__image">
+                        <span class="image-preview__default-text">Aperçu d'image</span>
+                    </div>
+                </div>
 
-                <div class="footer">
+                <div class="footer btn-sect">
                     <button class="submit" type="submit">Enregistrer</button>
-                    <button class="reset" type="reset">Reset</button>
+                    <button class="reset" id="resetCarInfo" type="reset">Reset</button>
                 </div>
 
             </form>
@@ -230,8 +236,8 @@
 
     <div class="gest-container gest-voitures-container">
         <div class="header">
-            <div class="ajouteVoiture">
-                <button onclick="openPopUp('CarAddLayer')">Ajouter une voiture</button>
+            <div class="ajouteVoiture btn-sect">
+                <button onclick="openPopUp('CarAddLayer');loadCarImages()">Ajouter une voiture</button>
                 <button onclick="chartsWaiter();openPopUp('statisticSectionLayer carGestStatistic')">Statistiques</button>
             </div>
         </div>
@@ -283,7 +289,8 @@
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </div>
             </div>
-            <div class="info-container">
+            <div style="overflow: auto;" >
+                <form class="info-container" method="post" action="miseAJourVoiture.php" enctype="multipart/form-data">
                 <div class="info-reservation">Consultaion de Voiture</div>
                 <div class="res-info">
 
@@ -313,7 +320,7 @@
                     <div class="res-status">
                         <div class="input-div">
                             <label for="info-div">Status</label>
-                            <input class="info-div" required id="vo-status" placeholder="Status" name="vo-status" disabled type="text">
+                            <input class="info-div" id="vo-status" placeholder="Status" name="vo-status" disabled type="text">
                         </div>
                         <div class="input-div">
                             <label for="vo-carburant">Carburant</label>
@@ -323,21 +330,26 @@
                             <label for="vo-prixParJour">Prix par jour</label>
                             <input class="vo-input" required id="vo-prixParJour" placeholder="Prix par jour" name="vo-prixParJour" disabled type="text">
                         </div>
+                        <div class="input-div">
+                            <label for="vo-images">Image de voiture</label>
+                            <input class="vo-input" id="vo-images" placeholder="Image de voiture" name="vo-images" disabled type="file">
+                        </div>
                         <div class="input-div hidden">
-                            <input class="info-div" required id="vo-codeVoiture" value="" name="vo-codeVoiture" disabled type="number">
+                            <input class="info-div" required id="vo-codeVoiture" value="" name="vo-codeVoiture" type="number">
                         </div>
                         <div class="input-div modDon-div">
                             <div onclick="showConfirmBtn()" class="modDon-btn">Modifier les données</div>                            
                         </div>
+                        <button id="sub-vo-btn" style="display:none" type="submit">click</button>
                         <div class="input-div conf-btn hidden">
                             <span>Enregistrer les modifications</span>
                             <div class="resp-div">
-                                <div onclick="submitCarData()" class="resp-btn">Oui</div>
+                                <label onclick="submitCarData()" class="resp-btn">Oui</label>
                                 <div onclick="showConfirmBtn();loadConsVoiture(null)" class="resp-btn">Non</div>
                             </div>
                         </div>
                     </div>
-
+                    </form>
                 </div>
                 <div class="vid-cont">
                     <div class="info-reservation">Vidange de voiture</div>

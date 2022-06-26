@@ -12,18 +12,22 @@
     height: 30px;
     text-align: center;
 }
-.ajouteVoiture{
+.btn-sect{
     width: 100%;
     height: 10%;
     font-size: 50px;
     display: flex;
     align-items: center;
 }
-.ajouteVoiture button{  
+.btn-sect a{
+    text-decoration: none;
+    color: white;
+}
+.btn-sect button{  
     width: fit-content;
     height: 40px;
-    border-radius: 50px;
-    font-family: comic;
+    border-radius: 20px 20px;
+    font-family: calibri;
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -34,30 +38,35 @@
     transition: all 0.35s;
     margin: 0 10px;
     padding: 0 20px;
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
 }
-.ajouteVoiture button:nth-child(1){
-    background-color: #FFC171;
-    color: #3C3A4F;
-}
-.ajouteVoiture button:nth-child(1):hover{
-    background-color: #7DFFA8;
-}
-.ajouteVoiture button:nth-child(2){
-    border: 3px solid #FFC171;
+.btn-sect button:nth-child(1){
+    background-color: #2f3e92;
+    border: none;
     color: white;
-    background-color: #3C3A4F;
 }
-.ajouteVoiture button:nth-child(2):hover{
+.btn-sect button:nth-child(2):hover{
+    background-color: #2f3e92;
+    color: white;
+}
+.btn-sect button:nth-child(2){
+    border: 3px solid #2f3e92;
+    color: #2f3e92;
+    background-color: transparent;
+}
+.btn-sect button:hover{
+    border-radius: 0 20px;
+}
+/* .ajouteVoiture button:nth-child(2):hover{
     border-color: #7DFFA8;
     background-color: #7DFFA8;
     color: #3C3A4F;
-}
+} */
 .gest-container .body{
     width: 90%;
     height: 550px;
     border-radius: 25px;
-    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+    /* background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%); */
     /* background: linear-gradient(150deg ,#4985ff 0% ,#40D3DC 100%); */
 
 }
@@ -111,7 +120,7 @@
 }
 .carsTabSection{
     width: 100%;
-    height: 80%;
+    height: 86%;
     display: flex;
     justify-items: center;
     overflow: auto;
@@ -119,7 +128,7 @@
 }
 .carsTabSection table{
     table-layout: fixed;
-    width: 1000px;
+    width: 1200px;
     height: fit-content;
 }
 .carsTabSection table th{
@@ -165,10 +174,11 @@
     position: relative;
     width: 900px;
     height: 500px;
-    border-radius: 25px;
+    border-radius: 15px;
     box-shadow: 8px 8px 30px 0 rgb(0, 0, 0,0.5);
     overflow: hidden;
-    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+    background-color: #f6f6f6;
+    background: linear-gradient(150deg ,#74a0f8 0% ,#40D3DC 100%);
 }
 .CarAddSection-header {
     position: relative;
@@ -208,6 +218,7 @@
     margin-top: 20px;
     width: 100%;
     height: 100%;
+    overflow: auto;
     /* background-color: tomato; */
 }
 .pairs{
@@ -219,17 +230,38 @@
 .pairs .search-input{
     width: 350px;
 }
+
+.uploaded-img{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    /* background-color: #002060; */
+}
+.image-container{
+    width: 300px;
+    height: 150px;
+    border: 2px solid #2f3e92;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 25px;
+    color: #2f3e92;
+}
+
+.image-preview__image{
+    display: none;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: #002060;
+}
 .CarAddLayer .footer{
     position: absolute;
     bottom: 0;
 }
-.CarAddLayer .footer button:nth-child(2){
-    background-color: transparent;
-}
-.CarAddLayer .footer button:nth-child(2):hover{
-    background-color: transparent;
-    background-color: #7DFFA8;
-}
+
 .messageGarage{
     color: #FFC171;
     /* background-color: tomato; */
@@ -336,6 +368,7 @@
     /* background-color: #002060; */
     height: 500px;
 }
+
 .confirm-btn{
     width: 200px;
     /* background-color: #002060; */

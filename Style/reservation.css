@@ -3,7 +3,7 @@
     height: 100%;
     /* background-color: wheat; */
 }
-.reservation .body{
+.reservation .res-body{
     width: 100%;
     height: 90%;
     /* background-color: tomato; */
@@ -20,7 +20,8 @@
 .detail-header{
     width: 100%;
     height: 40px;
-    background-color: #7DFFA8;
+    background-color: #f6f6f6;
+    background: linear-gradient(150deg ,#74a0f8 0% ,#40D3DC 100%);
     border: 3px solid white;
     display: flex;
     align-items: center;
@@ -46,14 +47,15 @@
     position: relative;
     width: 100%;
     height: 430px ;
-    background: linear-gradient(150deg ,#4985ff 0% ,#f9b9ff 100%);
+    background-color: #a7cbf8;
+    /* background-image: linear-gradient(316deg, #cdc1ff 0%, #e5d9f2 74%); */
     border: 3px solid white;
     transition: all 0.25s;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: auto;
-    background-color: tomato;
+    /* background-color: tomato; */
 }
 .footer{
     width: 100%;
@@ -80,7 +82,7 @@
     transition: all 0.35s;
     margin: 0 20px;
 }
-.submit{
+/* .submit{
     background-color: #FFC171;
     color: #3C3A4F;
 }
@@ -96,7 +98,7 @@
     border-color: #7DFFA8;
     background-color: #7DFFA8;
     color: #3C3A4F;
-}
+} */
 .hidden-div .detail-body{
     display: none; 
     /* height: 0px; */
@@ -105,7 +107,8 @@
     transform: rotateZ(0deg);
 }
 .hidden-div .detail-header{
-    background-color: #FFC171;
+    background-color: #70b2d9;
+background-image: linear-gradient(315deg, #70b2d9 0%, #39e5b6 74%);
 }
 .input-body{
     position: absolute;
@@ -150,4 +153,51 @@
 .input-div select{
     height: 50px;
     width: 270px;
+}
+.carData{
+    width: 500px;
+    height: 300px;
+    /* background-color: #002060; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.imagePreview{
+    width: 400px;
+    height: 200px;
+    /* background-color: tomato; */
+    border: 2px solid #2f3e92;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 25px;
+    color: #2f3e92;
+    box-shadow: 4px 4px 5px 0 rgb(0, 0, 0,0.3);
+}
+#car-preview__image{
+    display: none;
+    max-width: 400px;
+    max-height: 200px;
+    /* background-color: #002060; */
+}
+.resCarInfo{
+    width: 100%;
+    /* background-color: #002060; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.resCarInfo table{
+    width: 400px;
+    box-shadow: 4px 4px 5px 0 rgb(0, 0, 0,0.3);
+
+}
+.resCarInfo table *{
+    text-align: center;
+    max-width: fit-content;
+    font-family: calibri;
+    font-weight: 100;
+    font-size: 15px;
 }

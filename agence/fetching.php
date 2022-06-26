@@ -12,7 +12,12 @@ function fetchAgencyCars($codeAgence){
         $data["list"]=array();
 
         while($row = mysqli_fetch_assoc($donneesVoiture)){
+            $row["imagesVoiture"] = "data:image/*;base64,".base64_encode($row["imagesVoiture"]) ;
+            // echo $row["imagesVoiture"] ;
+            // $row["imagesVoiture"] = "<img width='300px' src='../media/images/logo.png'>" ;
+            // echo "<img width='300px' src='data:image/*;base64,".base64_encode($row["imagesVoiture"])."'>" ;
             $data["list"][$i] = $row;
+            // $data["list"][$i]["imagesVoiture"] = base64_encode($row["imagesVoiture"]);
             $data[$row["codeVoiture"]] = &$data["list"][$i];
             $data["list"][$i++]["reservation"] = fetchCarReservations($row["codeVoiture"]);
 

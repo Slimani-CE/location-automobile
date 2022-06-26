@@ -89,6 +89,7 @@
     <meta http-equiv="Expires" content="0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="../fontawesome-free-6.1.0-web/css/all.css"> -->
+    <link rel="shortcut icon" href="../Media/Images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../Style/font.css">
     <link rel="stylesheet" href="../Style/updates.css">
     <link rel="stylesheet" href="../Style/dashboard.css">
@@ -116,14 +117,15 @@
 
     
     <!-- section des mises -->
-    <?php
+    <!-- <?php
         echo "<style>";
         include "../style/updates.css";
         echo "</style>";
         include "../updates.html";
-    ?>
+    ?> -->
     <!--                   -->
 
+    <div class="bg-layer"></div>
 
     <div class="container">
 
@@ -188,6 +190,16 @@
         <div class="dashboard-body">
 
             <div class="body-header">
+                <div class="alert">
+                    <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+                    <lord-icon
+                        src="https://cdn.lordicon.com/kjsfgazx.json"
+                        trigger="loop"
+                        delay="10000"
+                        colors="primary:#ffc171"
+                        style="width:40px;height:40px">
+                    </lord-icon>
+                </div>
                 <div class="account-menu">
                     <div class="icon-div">
                         <i onclick="actionMenu()" class="fa-solid fa-bars"></i>
@@ -195,6 +207,7 @@
                     <span > 
                         <?php echo $_SESSION["prenomPersonnel"] ?>
                     </span>
+                    <i onclick="actionMenu()" class="fa-solid fa-user-tie"></i>
                 </div>
                 <div class="menu-drop-down hidden">
                     <div class="menu-item">

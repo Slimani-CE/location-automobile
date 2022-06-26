@@ -1,3 +1,5 @@
+const { image } = require("html2canvas/dist/types/css/types/image");
+const { text } = require("stream/consumers");
 
 //display & hide account menu
 function actionMenu(){
@@ -106,8 +108,7 @@ function loadFreeCars(){
                 continue;
             let value = dispoList[i].marqueVoiture+" | "+dispoList[i].modelVoiture+" | "+dispoList[i].immatriculationVoiture;
             dropDownList.innerHTML = dropDownList.innerHTML + `
-                <option value="${dispoList[i].codeVoiture}" > ${value} </option>
-    
+                <option onclick="loadCarPreview(${dispoList[i].codeVoiture})" value="${dispoList[i].codeVoiture}" > ${value} </option>
             `;
         }
     }
@@ -116,6 +117,22 @@ function loadFreeCars(){
         input.innerHTML= `<option selected value="aucune" >Le garage est vide</option>`;
         input.disabled=true;
     }
+
+    // load car image preview and infos
+    document.getElementById("voitureLoue").addEventListener("change",function(){
+        let imagePreview = document.getElementById("car-preview__image");
+        let textPreview  = document.getElementById("car-preview__default-text");
+        imagePreview.style.display="inline";
+        textPreview.style.display="none";
+        imagePreview.setAttribute("src",mainData.agence.voiture[this.value].imagesVoiture);
+        // console.log(mainData.agence.voiture[this.value]);
+        // Load infos
+        let marqueVoiture = document.getElementById("marqueVoiture").innerHTML = mainData.agence.voiture[this.value].marqueVoiture;
+        let modeleVoiture = document.getElementById("modelVoiture").innerHTML = mainData.agence.voiture[this.value].modelVoiture;
+        let immatriculeVoiture = document.getElementById("immatriculeVoiture").innerHTML = mainData.agence.voiture[this.value].immatriculationVoiture;
+        let prixParJourVoiture = document.getElementById("prixParJourVoiture").innerHTML = mainData.agence.voiture[this.value].prixParJourVoiture+" MAD";
+
+    })
 }
 function checkReservationData(){
     //Generate the agent name and generate "codePersonnel"
