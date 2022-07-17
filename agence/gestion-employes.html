@@ -1,3 +1,201 @@
 <div data-id="gest-employes" class="main-body hidden-service">
-    Gestion des employés
+    
+    <div class="EmpAddLayer hidden">
+        <div class="EmpAddSection">
+            <div class="EmpAddSection-header">
+                <div onclick="closePopUp(this)" class="closeBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                
+                <div class="login-text id-text">
+                    Ajouter les informations d'employée
+                </div>
+            </div>
+            <div id="formNewEmp" method="POST">
+                <div class="pairs">
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="nomPersonnel">Nom</label>
+                            <input required class="inputNewEmp" id="new-nomPersonnel" placeholder="Nom" name="nomPersonnel" type="text">
+                        </div>
+                    </div>
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="prenomPersonnel">Prénom</label>
+                            <input required class="inputNewEmp" id="new-prenomPersonnel" placeholder="Prénom" name="prenomPersonnel" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="pairs">
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="NCNSSPersonnel">N° CNSS</label>
+                            <input required class="inputNewEmp" id="new-NCNSSPersonnel" placeholder="N° CNSS" name="NCNSSPersonnel" type="text">
+                        </div>
+                    </div>
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="servicePersonnel">Service</label>
+                            <select required class="inputNewEmp" id="new-servicePersonnel" name="servicePersonnel">
+                                <option value="agent commercial">agent commercial</option>
+                                <option value="administrateur">administrateur</option>
+                            </select>
+                        </div>  
+                    </div>
+                </div>
+
+                <div class="pairs">
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="dateEntrePersonnel">Date D'entré</label>
+                            <input required class="inputNewEmp" id="new-dateEntrePersonnel" placeholder="Date D'entré" name="dateEntrePersonnel" type="date">
+                        </div>
+                    </div>
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="salairePersonnel">Salaire</label>
+                            <input required class="inputNewEmp" id="new-salairePersonnel" placeholder="Salaire" name="salairePersonnel" type="number">
+                        </div>  
+                    </div>
+                </div>
+                <div class="pairs">
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="portablePersonnel">N° Portable</label>
+                            <input required class="inputNewEmp" id="new-portablePersonnel" placeholder="N° Portable" name="portablePersonnel" type="tel">
+                        </div>
+                    </div>
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="emailUtilisateur">Email</label>
+                            <input required class="inputNewEmp" id="new-emailUtilisateur" placeholder="Email" name="emailUtilisateur" type="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="pairs">
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="motDePasseUtilisateur">Mot de passe</label>
+                            <input required class="inputNewEmp" id="new-motDePasseUtilisateur" placeholder="Mot de passe" name="motDePasseUtilisateur" type="password">
+                        </div>
+                    </div>
+                    <div class="search-input">
+                        <div class="search-div">
+                            <label for="confMotDePasseUtilisateur">Confimer le mot de passe</label>
+                            <input required class="inputNewEmp" id="new-confMotDePasseUtilisateur" placeholder="Confimer le mot de passe" name="confMotDePasseUtilisateur" type="password">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer btn-sect" style="margin-top: 50px;">
+                    <button class="submit" type="menu" onclick="submitNewEmp()">Enregistrer</button>
+                    <button class="reset" id="resetCarInfo">Reset</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="gest-container gest-clients-container">
+        <div class="header">
+            <div class="btn-sect">
+                <button onclick="openPopUp('EmpAddLayer')">Ajouter un employée</button>
+                <!-- <button>Statistiques</button> -->
+            </div>
+        </div>
+
+        <div class="body consultation-emp">
+            <div onkeyup="clientsSearchBarListner()" onclick="clientsSearchBarListner()" class="search-bar">
+                <div class="search-input">
+                    <div class="search-div">
+                        <label for="searchByNameEmp">Le nom</label>
+                        <input onclick="emptyInput(this)" placeholder="Le nom" id="searchByNameEmp" name="searchByNameEmp">
+                    </div>
+                </div>
+                <div class="search-input">
+                    <div class="search-div">
+                        <label for="searchByIdEmp">Identité</label>
+                        <input onclick="emptyInput(this)" placeholder="Identité" id="searchByIdEmp" name="searchByIdEmp">
+                    </div>
+                </div>
+                <!-- <div class="search-input">
+                    <div class="search-div">
+                        <label>Status</label>
+                        <div class="radioInput" onclick="clientsSearchBarListner()">
+                            <input placeholder="Tous" id="client-tous" name="client-status" value="Tous" type="radio" checked>  
+                            <label for="client-tous">Tous</label>
+                            <input placeholder="Inactive" id="client-inactive" name="client-status" value="Inactive" type="radio">
+                            <label for="client-inactive">Inactive</label>
+                            <input placeholder="client-active" id="client-active" name="client-status" value="Active" type="radio">
+                            <label for="client-active">Active</label>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+    
+            <div class="EmpTabSection">
+                <div class="emptyEmpTable hidden">
+                    aucune Personnel n'est correspondante aux valeurs entrées
+                </div>
+                <table id="emp-table">
+                    <!--      Affichage de liste des employees      -->
+                    <tr>
+                        <th>Prenom</th>
+                        <th>Nom</th>
+                        <th>N° CNSS</th>
+                        <th>Service</th>
+                        <th>N° Telephone</th>
+                        <th>Date d'entré</th>
+                        <th>Salaire/mois</th>
+                        <th>Modifier</th>
+                    </tr>
+                    <tr id="90">
+                        <form action="updateEmp.php" target="SubmitPage" id="feerwer" method="POST" class="empRow">
+                            <td class="hidden"><input required class="empInput codePersonnel" name="codePersonnel" type="number" value="0"></td>
+                            <td><input required class="empInput prenomPersonnel" name="prenomPersonnel" type="text" value="Ahmed"></td>
+                            <td><input required class="empInput nomPersonnel" name="nomPersonnel" type="text" value="SLIMANI"></td>
+                            <td><input required class="empInput NCNSSPersonnel" name="NCNSSPersonnel" type="text" value="1232"></td>
+                            <td>
+                                <select required class="empInput servicePersonnel" name="servicePersonnel">
+                                    <option value="Administrateur">Administrateur</option>
+                                    <option value="Agent commercial">Agent commercial</option>
+                                </select>
+                            </td>
+                            <td><input required class="empInput portablePersonnel" name="portablePersonnel" type="tel"  value="+212687987665"></td>
+                            <td><input required class="empInput dateEntrePersonnel" name="dateEntrePersonnel" type="date" value="08/07/2022"></td>
+                            <td><input required class="empInput salairePersonnel" name="salairePersonnel" type="text" value="4000 DH"></td>
+                            <td class="modEmp">
+                                <i class="fa-solid fa-solid-emp fa-pen-to-square" onclick="editEmp(parentNode.parentNode)" title="Modifier"></i>
+                                <i class="fa-solid fa-solid-emp fa-person-circle-minus" title="Retirer"></i>
+                            </td>
+                            <td class="confEditEmp hidden">
+                                <button type="submit">click</button>
+                                <i onclick="loadEmpTable()" class="fa-solid fa-solid-emp fa-xmark fa-xmark-emp noEditEmp" title="Annuler"></i>
+                            </td>
+                            <td class="confRemoveEmp hidden">
+                                <i class="fa-solid fa-solid-emp fa-check" title="Confirmer"></i>
+                                <i class="fa-solid fa-solid-emp fa-xmark fa-xmark-emp" title="Annuler"></i>
+                            </td>
+                        </form>
+                        
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+
+        <!-- Consultation des voitures -->
+        <div class="body consultation-emp hidden">
+            <div class="info-header">
+                <div onclick="closeConsultation('consultation-client')" class="closeBtn closeConsultation">
+                    <i class="fa-solid fa-solid-emp fa-arrow-right-from-bracket"></i>
+                </div>
+            </div>
+            <div class="info-container">
+                <div class="info-client">Consultaion de personnel</div>
+                
+            </div>
+
+        </div>
+    </div>
 </div>

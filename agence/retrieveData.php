@@ -30,15 +30,21 @@
             while($row = mysqli_fetch_assoc($donneesPersonnel)){
                 $data["personnel"] = $row;
             }
-
+            
             // Fetching "agence" table
             $data["agence"] = array();
             while($row = mysqli_fetch_assoc($donneesAgence)){
                 $data["agence"] = $row;
             }
+            // set up agency logo
+            $data["agence"]["logoAgence"] = "data:image/*;base64,".base64_encode($data["agence"]["logoAgence"]) ;
+            
+            // fetch data
+            $data["personnel"]["notification"] = fetchEmplNotif($data["personnel"]["codePersonnel"]);
             $data["agence"]["voiture"] = fetchAgencyCars($data["agence"]["codeAgence"]);
             $data["agence"]["contrat"] = fecthAgencyContracts($data["agence"]["codeAgence"]);
             $data["agence"]["client"] = fecthAgencyClients($data["agence"]["codeAgence"]);
+            $data["agence"]["personnel"] = fetchAgencyEmpl($data["agence"]["codeAgence"]);
             
         }
         else{

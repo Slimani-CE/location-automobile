@@ -89,7 +89,7 @@
                         <div class="input-div dec-retour-div hidden">
                             <span class="resp-txt">voulez-vous déclarer le retour ?</span>
                             <div class="resp-div">
-                                <div class="resp-btn yes-dec-btn">Oui</div>
+                                <div onclick="submitRetour()" class="resp-btn yes-dec-btn">Oui</div>
                                 <div class="resp-btn no-dec-btn">Non</div>
                             </div>
                         </div>
@@ -100,41 +100,128 @@
                 </div>
                 <div class="cont-retour hidden">
                     <div class="info-reservation">Declaration du retour</div>
-                    <div class="res-info res-retour">
-                    
+                    <form action="ajouteRetour.php" target="retourDataSubmitPage" method="POST" id="retourDataForm">
+                        <div class="res-info res-retour">
+                        
+                            <div class="res-info-child">
+                                <div class="input-div search-div">
+                                    <label for="res-dateRetour">Date de retour</label>
+                                    <input class="ret-input" required id="res-dateRetour" placeholder="Date de retour" name="res-dateRetour" type="date"> 
+                                    <input class="ret-input hidden" required id="res-codeReservation" placeholder="Date de retour" name="res-codeReservation" type="number"> 
+                                    <input class="ret-input hidden" required id="res-codeVoiture" placeholder="Date de retour" name="res-codeVoiture" type="number"> 
+                                </div>
+                                <div class="input-div search-div">
+                                    <label for="res-kilometrageActuel">Km actuel (><span id="KiloActuel"></span> Km)</label>
+                                    <input class="ret-input" required id="res-kilometrageActuel" placeholder="Kilometrage actuel" name="res-kilometrageActuel" type="number"> 
+                                </div>
+                                <div class="text-area search-div" style="height: 150px;">
+                                    <label for="res-etatActuel">Observation</label>
+                                    <textarea class="ret-input" id="res-etatActuel" cols="40" rows="15" placeholder="État actuel" name="res-etatActuel" type="text"></textarea>
+                                </div>
+                            </div>
+                            <div class="res-info-child">
+                                <div class="input-div search-div">
+                                    <label for="res-etatPaiement">État de paiement</label>
+                                    <input disabled id="res-etatPaiement" placeholder="État de paiement" name="res-etatPaiement" type="text">
+                                </div>
+                                <div class="input-div search-div">
+                                    <label for="res-etatVoiture">État de voiture</label>
+                                    <select class="ret-input" required id="res-etatVoiture" placeholder="Voiture" name="res-etatVoiture" type="text"> 
+                                        <option value="ca marche">Ça marche</option>
+                                        <option value="en panne">En panne</option>
+                                    </select>
+                                </div>
+                                <div class="input-div search-div">
+                                    <label for="res-kilometrageParcourue">Kilometrage parcourue</label>
+                                    <input class="ret-input" required id="res-kilometrageParcourue" placeholder="Voiture" name="res-kilometrageParcourue" type="number"> 
+                                </div>
+                                <div class="input-div search-div dec-retour-div">
+                                    <!-- <span class="resp-txt">Enregistrer les modifications</span> -->
+                                    <div class="resp-div">
+                                        <div class="resp-btn yes-eng-btn">Enregistrer</div>
+                                        <div class="resp-btn no-eng-btn">Sortie</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="cont-pay">
+                    <div class="info-reservation">Paiements effectués</div>
+                    <div class="pay-div-header btn-sect">
+                        <button onclick="submitPay(parentNode.parentNode)" class="add-pay-button">Ajouter un paiement</button>
+                    </div>
+                    <div class="res-info res-pay hidden">
                         <div class="res-info-child">
                             <div class="input-div">
-                                <label for="res-etatVoiture">État avant la reservation</label>
-                                <input disabled id="res-etatVoiture" placeholder="État avant la reservation" name="res-etatVoiture" type="text">
+                                <label for="pay-datePaiement">Date de paiement</label>
+                                <input class="res-input pay-input" required id="pay-datePaiement" placeholder="Date de paiement" name="pay-datePaiement" type="date"> 
                             </div>
                             <div class="input-div">
-                                <label for="res-etatActuel">État actuel</label>
-                                <input class="res-input info-div" required id="res-etatActuel" placeholder="État actuel" name="res-etatActuel" type="text">
+                                <label for="pay-methodePaiement">Methode de paiement</label>
+                                <select class="res-input pay-input" required id="pay-methodePaiement" placeholder="Methode de paiement" name="pay-methodePaiement" type="text"> 
+                                    <option value="Espéce"> Espéce </option>
+                                    <option value="Chéque"> Chéque </option>
+                                    <option value="Carte bancaire"> Carte bancaire </option>
+                                    <option value="Virement bancaire"> Virement bancaire </option>
+                                </select>
                             </div>
                             <div class="input-div">
-                                <label for="res-dateRetour">Date de retour</label>
-                                <input class="res-input info-div" required id="res-dateRetour" placeholder="Date de retour" name="res-dateRetour" type="date"> 
+                                <label for="pay-facturePaiement">Montant facturé</label>
+                                <input class="res-input pay-input" required id="pay-facturePaiement" placeholder="Montant facturé" name="pay-facturePaiement" type="number"> 
                             </div>
                         </div>
                         <div class="res-info-child">
                             <div class="input-div">
-                                <label for="res-etatPaiement">État de paiement</label>
-                                <input disabled id="res-etatPaiement" placeholder="État de paiement" name="res-etatPaiement" type="text">
+                                <label for="pay-totalPaiement">Total à payer</label>
+                                <input class="res-input pay-input" required readonly id="pay-totalPaiement" placeholder="Total à payer" name="pay-totalPaiement" type="text"> 
                             </div>
                             <div class="input-div">
-                                <label for="res-statusVoiture">Status de voiture</label>
-                                <input class="res-input info-div" required id="res-statusVoiture" placeholder="Voiture" name="res-statusVoiture" type="text"> 
+                                <label for="pay-avancePaiement">Total payé</label>
+                                <input class="res-input pay-input" required readonly id="pay-avancePaiement" placeholder="Total payé" name="pay-avancePaiement" type="text"> 
                             </div>
-                            <div class="input-div dec-retour-div">
-                                <!-- <span class="resp-txt">Enregistrer les modifications</span> -->
+                            <div class="input-div">
+                                <label for="pay-etatPaiement">État de paiement</label>
+                                <input class="res-input pay-input" readonly required id="pay-etatPaiement" placeholder="État de paiement" name="pay-etatPaiement" type="text"> 
+                            </div>
+                            <div class="input-div payResp-div">
+                                <span class="resp-txt">Enregistrer les modifications</span>
                                 <div class="resp-div">
-                                    <div class="resp-btn yes-eng-btn">Enregistrer</div>
-                                    <div class="resp-btn no-eng-btn">Sortie</div>
+                                    <div class="resp-btn yesConPay">Oui</div>
+                                    <div class="resp-btn noConPay">Non</div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                    <table class="pay-table">
+                        <tr>
+                            <th>Date de paiement</th>
+                            <th>Total à payer</th>
+                            <th>Total payé</th>
+                            <th>Montant facturé</th>
+                            <th>Rest</th>
+                            <th>Facture</th>
+                        </tr>
+                        <tr id="pay-76">
+                            <td>Date de paiement</td>
+                            <td>Total à payer</td>
+                            <td>Total payé</td>
+                            <td>Montant facturé</td>
+                            <td>Rest</td>
+                            <td class="payConst">
+                                <div class="payFact">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </div>
+                                <div class="payMod">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="payRemove">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="payment-tab">
                     <table>

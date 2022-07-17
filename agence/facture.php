@@ -35,7 +35,7 @@
 
         <div class="fact-header margin">
             <div class="logo">
-                <img src="../Media/Images/logo.png" alt="">
+                <img id="logoAgence" src="../Media/Images/logo.png" alt="">
             </div>
             <div class="ag-info">
                 <span id="nomAgence">Votre agence</span>
@@ -58,39 +58,39 @@
                     <table>
                         <tr>
                             <td colspan="2">Nom et prénom: </td>
-                            <td colspan="2"><span>Ahmed SLIMANI</span></td>
+                            <td colspan="2"><span id="nomClient">Ahmed SLIMANI</span></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Adresse: </td>
-                            <td colspan="2"><span>NR 05 RUE 07 AV ZENNOUHIA</span></td>
+                            <td>Adresse: </td>
+                            <td colspan="3"><span id="addClient">NR 05 RUE 07 AV ZENNOUHIA</span></td>
                         </tr>
                         <tr>
                             <td>Né le: </td>
-                            <td><span>01/05/2000</span></td>
+                            <td><span id="birthClient">01/05/2000</span></td>
                             <td>Nationalité: </td>
-                            <td><span>maroccain</span></td>
+                            <td><span id="natClient">maroccain</span></td>
                         </tr>
                         <tr>
                             <td>Ville: </td>
-                            <td><span>Jorf</span></td>
-                            <td>Pays: </td>
-                            <td><span>Maroc</span></td>
+                            <td><span id="villeClient">Jorf</span></td>
+                            <!-- <td>Pays: </td>
+                            <td><span id="payClient">Maroc</span></td> -->
+                            <td>Téléphone: </td>
+                            <td><span id="teleClient">+212675784675</span></td>
                         </tr>
                         <tr>
-                            <td>Téléphone: </td>
-                            <td><span>+212675784675</span></td>
                             <td>Email: </td>
-                            <td><span>itsmustaphahere@gmail.com</span></td>
+                            <td><span id="emailClient">itsmustaphahere@gmail.com</span></td>
                         </tr>
                         <tr>
                             <td>Type d'identité: </td>
-                            <td><span>CIN</span></td>
+                            <td><span id="typeIdClient">CIN</span></td>
                             <td>N° identité</td>
-                            <td><span>UC453445</span></td>
+                            <td><span id="idClient">UC453445</span></td>
                         </tr>
                         <tr>
                             <td>N° Permis</td>
-                            <td><span>342/2020</span></td>
+                            <td><span id="permisClient">342/2020</span></td>
                         </tr>
                     </table>
                 </div>
@@ -98,20 +98,20 @@
                     <table>
                         <tr class="white-with-border">
                             <td>
-                                Numéro de contrat: <span>01/2022</span>
+                                Numéro de contrat: <span id="numContrat">01/2022</span>
                             </td>
                         </tr>
                         <tr class="white-with-border">
                             <td>
-                                Agent commercial: <span>Mustapha</span>
+                                Agent commercial: <span id="agentCom">Mustapha</span>
                             </td>
                         </tr>
                         <tr class="white-with-border">
                             <td>
                                 Véhicule
-                                <div>Matricule: <span>12312 A 25</span></div>
-                                <div>Marque: <span>audi</span></div>
-                                <div>Modèle: <span>rs3</span></div>
+                                <div>Matricule: <span id="immVoiture">12312 A 25</span></div>
+                                <div>Marque: <span id="maqrueVoiture">audi</span></div>
+                                <div>Modèle: <span id="modeleVoiture">rs3</span></div>
                             </td>
                         </tr>
                     </table>
@@ -127,26 +127,26 @@
                     <th>Montant HT</th>
                 </tr>
                 <tr>
-                    <td>Location de voiture <span>audi rs3 - 431412 A 25</span></td>
-                    <td><span>350.00</span> DH</td>
-                    <td><span>2</span></td>
-                    <td><span>700.00</span> DH</td>
+                    <td>Location de voiture <span id="idVoiture">audi rs3 - 431412 A 25</span></td>
+                    <td><span id="prixParJour">350.00</span> DH</td>
+                    <td><span id="nbrJour">2</span></td>
+                    <td><span id="totalTTC">700.00</span> DH</td>
                 </tr>
                 <tr></tr>
             </table>
             <div class="payment">
                 <table>
                     <tr>
-                        <th>Total HT: </th>
-                        <th><span>700.00</span> DH</th>
+                        <td>Total HT: </td>
+                        <td><span id="totalTTC2">700.00</span> DH</td>
+                        <td>Total payé: </td>
+                        <td><span id="totalPayed">500.00</span> DH</td>
                     </tr>
                     <tr>
-                        <th>Total payé: </th>
-                        <th><span>500.00</span> DH</th>
-                    </tr>
-                    <tr>
-                        <th>Le reste: </th>
-                        <th><span>200.00</span> DH</th>
+                        <th>Montant dans la facture: </th>
+                        <th><span id="curPayed">200.00</span> DH</th>
+                        <td>Le reste: </td>
+                        <td><span id="totalRest">200.00</span> DH</td>
                     </tr>
                 </table>
             </div>

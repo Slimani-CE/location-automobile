@@ -1,5 +1,42 @@
 <?php
 
+// Fetching "Employes" table for our agency
+function fetchAgencyEmpl($codeAgence){
+    include "../connexion.php";
+    $requetEmployes = " SELECT * FROM personnel NATURAL JOIN utilisateur WHERE codeAgence = ".$codeAgence;
+    $donneesEmployes = mysqli_query($connexion,$requetEmployes);
+
+    $data = array();
+    if($donneesEmployes){
+        $i = 0;
+        $data["list"]=array();
+        while($row = mysqli_fetch_assoc($donneesEmployes)){
+            $data["list"][$i] = $row;
+            $data[$row["codePersonnel"]] = &$data["list"][$i++];
+        }
+        return $data;
+    }
+    die(" Erreur: resultats de selection de données des Personnels");
+}
+// Fetching "Notifications" table for our "personnel"
+function fetchEmplNotif($codePersonnel){
+    include "../connexion.php";
+    $requetNotif = " SELECT * FROM notification WHERE codePersonnel = ".$codePersonnel;
+    $donneesNotif = mysqli_query($connexion,$requetNotif);
+
+    $data = array();
+    if($donneesNotif){
+        $i = 0;
+        $data["list"]=array();
+        while($row = mysqli_fetch_assoc($donneesNotif)){
+            $data["list"][$i] = $row;
+            $data[$row["codeNotification"]] = &$data["list"][$i++];
+        }
+        return $data;
+    }
+    die(" Erreur: resultats de selection des notifications");
+}
+
 // Fetching "voiture" table for our agency
 function fetchAgencyCars($codeAgence){
     include "../connexion.php";
@@ -19,8 +56,8 @@ function fetchAgencyCars($codeAgence){
             $data["list"][$i] = $row;
             // $data["list"][$i]["imagesVoiture"] = base64_encode($row["imagesVoiture"]);
             $data[$row["codeVoiture"]] = &$data["list"][$i];
-            $data["list"][$i++]["reservation"] = fetchCarReservations($row["codeVoiture"]);
-
+            $data["list"][$i]["reservation"] = fetchCarReservations($row["codeVoiture"]);
+            $data["list"][$i++]["vidange"] = fetchCarVidange($row["codeVoiture"]);
         }
         return $data;
     }
@@ -39,7 +76,6 @@ function fetchCarReservations($codeVoiture){
             $data["list"][$i] = $row;
             $data[$row["codeReservation"]] = &$data["list"][$i];
             $data["list"][$i++]["paiement"] = fetchReservationPayment($row["codeReservation"]);
-
         }
         // echo "{length:";
         // echo "<h1 style=\"color:tomato;\">".sizeof($data["list"])."</h1>";
@@ -48,6 +84,25 @@ function fetchCarReservations($codeVoiture){
     }
     die(" Erreur: resultats de selection de données des voitures");
 }
+// Fetching "Vidange" table for each car
+function fetchCarVidange($codeVoiture){
+    include "../connexion.php";
+    $requetVidange = " SELECT * FROM vidange WHERE codeVoiture = ".$codeVoiture;
+    $donneesVidange = mysqli_query($connexion,$requetVidange);
+    $data = array();
+    $i = 0;
+    if($donneesVidange){
+        $data["list"]=array();
+        while($row = mysqli_fetch_assoc($donneesVidange)){
+            $data["list"][$i] = $row;
+            $data[$row["codeVidange"]] = &$data["list"][$i++];
+        }
+        return $data;
+    }
+    die(" Erreur: resultats de selection de données des voitures");
+}
+
+
 // Fetching "paiement" table for each "reservation"
 function fetchReservationPayment($codeReservation){
     include "../connexion.php";

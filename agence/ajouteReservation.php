@@ -8,11 +8,11 @@
     $lieuDepartReservation = $_POST["lieuDepartReservation"];
     $lieuRetourReservation = $_POST["lieuRetourReservation"];
     $etatVehicule = $_POST["etatVehicule"];
-    $prixParJourVoiture = $_POST["prixParJourVoiture"];
+    $prixParJourVoiture = $_POST["prixParJourVoitureRes"];
     $totalPaiement = $_POST["totalPaiement"];
     $methodePaiement = $_POST["methodePaiement"];
     $avancePaiement = $_POST["avancePaiement"];
-    $codePersonnel = $_POST["codePersonnel"];
+    $codePersonnel = $_POST["codePersonnelRes"];
     $codeVoiture = $_POST["codeVoiture"];
     $dateDepartContrat = $dateDepartReservation;
     $dateRetourContrat = $dateRetourReservation;

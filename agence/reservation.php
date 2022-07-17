@@ -33,15 +33,15 @@
                                 </select>
                             </div>
                             <div class="input-div">
+                                <label for="identiteClient">N° d'identité</label>
+                                <input required id="identiteClient" placeholder="N° d'identité" name="identiteClient" type="text">
+                            </div>
+                            <div class="input-div">
                                 <label for="typeIdentiteClient">Type de piece d'identité</label>
                                 <select required id="typeIdentiteClient" placeholder="Type de piece d'identité" name="typeIdentiteClient" type="text">
                                     <option value="CIN">Cart d'identité</option>
                                     <option value="Passe port">Passe port</option>
                                 </select>
-                            </div>
-                            <div class="input-div">
-                                <label for="identiteClient">N° d'identité</label>
-                                <input required id="identiteClient" placeholder="N° d'identité" name="identiteClient" type="text">
                             </div>
                         </div>
                         
@@ -150,7 +150,7 @@
                                             <td id="marqueVoiture">Marque</td>
                                             <td id="modelVoiture">Model</td>
                                             <td id="immatriculeVoiture">Immatricule</td>
-                                            <td id="prixParJourVoiture">Prix/jour</td>
+                                            <td id="ppjTabVoiture">Prix/jour</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -204,8 +204,8 @@
                                 </select>
                             </div>
                             <div class="input-div">
-                                <label for="prixParJourVoiture">Prix par jour</label>
-                                <input readonly id="prixParJourVoiture" placeholder="Prix par jour" name="prixParJourVoiture" type="text">
+                                <label for="prixParJourVoitureRes">Prix par jour</label>
+                                <input readonly id="prixParJourVoitureRes" placeholder="Prix par jour" name="prixParJourVoitureRes" type="text">
                             </div>
 
                         </div>
@@ -235,9 +235,9 @@
                         <div class="section">
 
                             <div class="input-div">
-                                <label for="prenomPersonnel">L'agent commercial</label>
-                                <input required id="prenomPersonnel" disabled placeholder="L'agent commercial" type="text">
-                                <input class="hidden" id="codePersonnel" required placeholder="L'agent commercial" name="codePersonnel" value=10 type="text">
+                                <label for="prenomPersonnelRes">L'agent commercial</label>
+                                <input required id="prenomPersonnelRes" disabled placeholder="L'agent commercial" type="text">
+                                <input class="hidden" id="codePersonnelRes" required placeholder="L'agent commercial" name="codePersonnelRes" value=10 type="text">
                             </div>
                         </div>
 
