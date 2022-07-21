@@ -7,6 +7,7 @@
     $nombreJours = $_POST["nombreJours"];
     $lieuDepartReservation = $_POST["lieuDepartReservation"];
     $lieuRetourReservation = $_POST["lieuRetourReservation"];
+    $alertReservation = $_POST["alertReservation"];
     $etatVehicule = $_POST["etatVehicule"];
     $prixParJourVoiture = $_POST["prixParJourVoitureRes"];
     $totalPaiement = $_POST["totalPaiement"];
@@ -38,8 +39,8 @@
     $codeContrat = mysqli_insert_id($connexion);
 
     //Add "reservation" inforamtions
-    $reservationRequest = "INSERT INTO reservation(dateDepartReservation,dateRetourReservation,etatReservation,codeClient,codeVoiture,codeContrat) 
-    values ('$dateDepartReservation','$dateRetourReservation','loué','$codeClient','$codeVoiture','$codeContrat')";
+    $reservationRequest = "INSERT INTO reservation(dateDepartReservation,dateRetourReservation,etatReservation,codeClient,codeVoiture,alertReservation,codeContrat) 
+    values ('$dateDepartReservation','$dateRetourReservation','loué','$codeClient','$codeVoiture','$alertReservation','$codeContrat')";
     $resultReservationRequest = mysqli_query($connexion,$reservationRequest);
     $codeReservation = mysqli_insert_id($connexion);
 

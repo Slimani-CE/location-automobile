@@ -20,7 +20,7 @@
                 $codeReservation = $listReservation[$j];
                 $query = " INSERT INTO notification(descreptionNotification, nomRefTableNotification, codePersonnel, codeRefTableNotification, isReadNotification) values
                 ('reservation', 'res-non-pay', '$codePersonnel', '$codeReservation', 0) ";
-                // echo $query."<br>";
+                echo $query."<br>";
                 $result = mysqli_query($connexion, $query);
                 if(!$result){
                     die ("ERROR: durant la mise a jours des notifications");
@@ -30,7 +30,7 @@
             for($j = 0; $j < count($listNoNotifPay) && strlen($listNoNotifPayStr) > 0; $j++){
                 $codeReservation = $listNoNotifPay[$j];
                 $query = " DELETE FROM notification WHERE nomRefTableNotification = 'res-non-pay' AND codeRefTableNotification = '$codeReservation' AND codePersonnel = '$codePersonnel' ";
-                // echo $query."<br>";
+                echo $query."<br>";
                 $result = mysqli_query($connexion, $query);
                 if(!$result){
                     die ("ERROR: durant la mise a jours des notifications");

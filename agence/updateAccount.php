@@ -1,5 +1,6 @@
 <?php
     include "../connexion.php";
+    session_start();
     $resultMsg = "<span class='correct'> Result message </span>";
     if( isset($_POST["codePersonnelAcc"]) && isset($_POST["prenomPersonnelAcc"]) && isset($_POST["NCNSSPersonnelAcc"]) && isset($_POST["dateEntrePersonnelAcc"]) && isset($_POST["emailUtilisateurAcc"]) && isset($_POST["nomPersonnelAcc"]) && isset($_POST["salairePersonnelAcc"]) && isset($_POST["portablePersonnelAcc"]) ){
         $prenomPersonnel = $_POST["prenomPersonnelAcc"];
@@ -16,8 +17,10 @@
         $resultUt = mysqli_query($connexion,$utQuery);
         if(!$resultPerso || !$resultUt)
             $resultMsg = "<span class='error'> Erreur durant la mise a jours du compte </span>";
-        else 
+        else{
             $resultMsg = "<span class='correct'> Informations de compte mises à jour avec succès </span>";
+            $_SESSION["emailUtilisateur"] = $emailUtilisateur;
+        }
     }
     else
         $resultMsg = "<span class='error'> Erreur durant la mise a jours du compte </span>";

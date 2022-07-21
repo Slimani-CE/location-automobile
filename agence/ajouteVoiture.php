@@ -6,7 +6,6 @@
     $dateCirculaireVoiture = $_POST["dateCirculaireVoiture"];
     $prixParJourVoiture = $_POST["prixParJourVoiture"];
     $kilometrageVoiture = $_POST["kilometrageVoiture"];
-    $imagesVoiture = file_get_contents($_FILES['imagesVoiture']["tmp_name"]);
     $dateVignetteVoiture = $_POST["dateVignetteVoiture"];
     $totalVignetteVoiture = $_POST["totalVignetteVoiture"];
     $alertVignetteVoiture = $_POST["alertVignetteVoiture"];
@@ -29,10 +28,12 @@
 
     $resultExecution = mysqli_query($connexion,$commandAjoute);
     $codeVoiture = mysqli_insert_id($connexion);
-    
-    $pdo = new PDO("mysql:host=localhost;dbname=bdd-location","root","");
-    $query = $pdo->prepare("UPDATE voiture SET imagesVoiture = ? WHERE codeVoiture = ? ");
-    $query->execute(array($imagesVoiture,$codeVoiture));
+    if( $_FILES['imagesVoiture']['size'] != 0 && $_FILES['imagesVoiture']['error'] == 0 ){
+        $imagesVoiture = file_get_contents($_FILES['imagesVoiture']["tmp_name"]);
+        $pdo = new PDO("mysql:host=localhost;dbname=bdd-location","root","");
+        $query = $pdo->prepare("UPDATE voiture SET imagesVoiture = ? WHERE codeVoiture = ? ");
+        $query->execute(array($imagesVoiture,$codeVoiture));
+    }
 
     if($resultExecution)
         $resultMsg = "<span class='correct'> Voiture ajoutée avec succès </span>";

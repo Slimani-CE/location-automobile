@@ -204,14 +204,18 @@
                                 </select>
                             </div>
                             <div class="input-div">
+                                <label for="alertReservation">Alert de retour (Jours)</label>
+                                <input id="alertReservation" placeholder="Alert de retour (Jours)" name="alertReservation" type="text">
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="section">
+                            
+                            <div class="input-div">
                                 <label for="prixParJourVoitureRes">Prix par jour</label>
                                 <input readonly id="prixParJourVoitureRes" placeholder="Prix par jour" name="prixParJourVoitureRes" type="text">
                             </div>
-
-                        </div>
-
-                        <div class="section">
-
                             <div class="input-div">
                                 <label for="totalPaiement">total TTC</label>
                                 <input readonly id="totalPaiement" placeholder="total TTC" name="totalPaiement" type="text">
@@ -220,6 +224,11 @@
                                 <label for="avancePaiement">Avance</label>
                                 <input required id="avancePaiement" placeholder="Avance" name="avancePaiement" type="text">
                             </div>
+                            
+                        </div>
+                        
+                        <div class="section">
+                            
                             <div class="input-div">
                                 <label for="methodePaiement">Methode de paiement</label>
                                 <select required id="methodePaiement" placeholder="Methode de paiement" name="methodePaiement">
@@ -229,11 +238,6 @@
                                     <option value="Virement bancaire"> Virement bancaire </option>
                                 </select>
                             </div>
-
-                        </div>
-
-                        <div class="section">
-
                             <div class="input-div">
                                 <label for="prenomPersonnelRes">L'agent commercial</label>
                                 <input required id="prenomPersonnelRes" disabled placeholder="L'agent commercial" type="text">

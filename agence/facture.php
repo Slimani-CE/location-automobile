@@ -31,6 +31,9 @@
     <title>Facture</title>
 </head>
 <body onload="checkMainData();">
+    <div class="bg-layer">
+        
+    </div>
     <div id="pdf-content">
 
         <div class="fact-header margin">

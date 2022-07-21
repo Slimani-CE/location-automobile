@@ -104,12 +104,15 @@
                             
 
                         </canvas>		
+                        <h2 class="graph-title">Durée de location des voiture sur titre d'année</h2>
                     </div>
                     <div class="chart-body chart-2">
                         <canvas id="monthlyBasedOn">
                             
 
                         </canvas>		
+                        <h2 class="graph-title">Durée de location des voitures par rapport aux durée globale </h2>
+
                     </div>
                 </div>
             </div>
