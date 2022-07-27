@@ -1,8 +1,3 @@
-// loadConsClient() will load Client info for consultation
-function loadConsClient(codeClient){
-    let info = document.getElementsByClassName("info-client")[0];
-    info.innerHTML = "Consultation de client N° "+codeClient;
-}
 
 
 // loadClientsTable() will load agency clients in the garage
@@ -95,4 +90,113 @@ function checkClientsTableLength(){
             emptyClientsTable.setAttribute("class","emptyClientsTable hidden");
         }
     }
+}
+
+// loadConsClient() will load Client info for consultation
+function loadConsClient(codeClient){
+    document.getElementById("codeClient-cons").value = codeClient;
+    let client = mainData.agence.client[codeClient];
+    document.getElementById("nomClient-cons").value = client.nomClient;
+    document.getElementById("typeIdentiteClient-cons").value = client.typeIdentiteClient;
+    document.getElementById("emailClient-cons").value = client.emailClient;
+    document.getElementById("nationaliteClient-cons").value = client.nationaliteClient;
+    document.getElementById("adresseClient-cons").value = client.adresseClient;
+    document.getElementById("prenomClient-cons").value = client.prenomClient;
+    document.getElementById("identiteClient-cons").value = client.identiteClient;
+    document.getElementById("numTelClient-cons").value = client.numTelClient;
+    document.getElementById("villeClient-cons").value = client.villeClient;
+    document.getElementById("numPermisClient-cons").value = client.numPermisClient;
+    document.getElementById("sexeClient-cons").value = client.sexeClient;
+    document.getElementById("exIdentiteClient-cons").value = client.exIdentiteClient;
+    document.getElementById("dateNaissanceClient-cons").value = client.dateNaissanceClient;
+    document.getElementById("regionClient-cons").value = client.regionClient;
+    document.getElementById("exNumPermisClient-cons").value = client.exNumPermisClient;
+}
+
+
+// trait and submit client data
+function runClientDataSubmit(){
+    let form = document.getElementsByClassName("client-cons-data")[0];
+    let listInputs = form.querySelectorAll(".client-input-cons");
+    let modBtn = form.querySelector(".modDon-btn");
+    let respondDiv = form.querySelector(".conf-btn");
+    let yesSubmit = form.querySelector("#yesEditClientData");
+    let noSubmit = form.querySelector("#noEditClientData");
+    let codeClient = form.querySelector("#codeClient-cons").value;
+    let checkHandler = true;        
+    let errorStyle = "border-left: 5px solid rgb(202, 86, 65);";
+    let correctStyle = "border-left: 5px solid #45af69;";
+
+
+    // Define function the will check and submt new client's data
+    let submitNewData = function(){
+        // check if all inputs are not empty
+        listInputs.forEach( input => {
+            if( input.value )
+                input.style = correctStyle;
+            else{
+                input.style = errorStyle;
+                checkHandler = false;
+            }
+        } );
+
+        // Submit data if checkHandler is true
+        if(checkHandler){
+            
+            let listData = Array();
+            let url = "../agence/updateClient.php?"
+            listInputs.forEach( input => {
+                listData.push(input.getAttribute("name")+'='+input.value);
+            })
+            url += listData.join("&");
+            // window.open(url, "_blank");
+            runIFrame("newClientDataForm", url, 5);
+            setTimeout(checkMainData,2000);
+            setTimeout(function(){loadConsClient(codeClient);},4000);
+            // Display the mod btn
+            modBtn.setAttribute("class", "modDon-btn");
+            // Hidde confirm btns
+            respondDiv.setAttribute("class", "input-div conf-btn hidden");
+            // Prevent access to change inputs
+            listInputs.forEach( input => {
+                input.disabled = true;
+            } );
+            // Reset inputs style
+            listInputs.forEach( input => {
+                input.style = null;
+            } );
+        }
+    };
+
+    // Hidde the mod btn
+    modBtn.setAttribute("class", "modDon-btn hidden");
+    // Display confirm btns
+    respondDiv.setAttribute("class", "input-div conf-btn");
+
+    // Reset form if we clicked on noSubmit & remove event listener from yesSubmit & reset inputs style
+    noSubmit.addEventListener("click", function(){
+        // Remove event listener from yesSubmit
+        yesSubmit.removeEventListener("click", submitNewData);
+        // Reset inputs style
+        listInputs.forEach( input => {
+            input.style = null;
+        } );
+        // Display the mod btn
+        modBtn.setAttribute("class", "modDon-btn");
+        // Hidde confirm btns
+        respondDiv.setAttribute("class", "input-div conf-btn hidden");
+        // Prevent access to change inputs
+        listInputs.forEach( input => {
+            input.disabled = true;
+        } );
+        // Client old data
+        loadConsClient(codeClient);
+    })
+
+    yesSubmit.addEventListener("click", submitNewData);
+
+    // Give access to change inputs
+    listInputs.forEach( input => {
+        input.disabled = false;
+    } );
 }

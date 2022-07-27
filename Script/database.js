@@ -1,77 +1,86 @@
 let mainData;
-let settedTime = 20;
-let time = 10;
 let isMainDataReady = false;
 function chartsWaiter(){
-	let timeFunction = setTimeout( chartsWaiter , (isMainDataReady)? time=-1:time+=10 )
-	if(time==-1){
-		// chartReservationNbr();
-		// reservationBasedOn();
-		clearTimeout(timeFunction)
-	}
+    // chartReservationNbr();
+    // reservationBasedOn();
 }
+
+// This function will run when mainData is ready
 function tableWaiter(){
-	let timeFunction = setTimeout( tableWaiter , (isMainDataReady)? time=-1:time+=10 )
-	if(time==-1){
-        if( sessionStorage.getItem("curPage") == "reservation" )
-            setInterval(loadClientInfo,100);
-        if( sessionStorage.getItem("curPage") == "gest-voitures" ){
-            loadCarsTable();
-            loadMonthsTable((new Date()).getUTCFullYear());
-            sessionStorage.setItem("curPage",null);
-            if(sessionStorage.getItem("activeVoSection") && sessionStorage.getItem("activeVoSection")!='null')
-            {
-                openConsultation('consultation-voiture');
-                loadConsVoiture(sessionStorage.getItem("activeVoSection"));
-                sessionStorage.setItem("activeVoSection","null");
-            }
-        }
-        if( sessionStorage.getItem("curPage") == "gest-clients" )
-        {
-		    loadClientsTable();
-            sessionStorage.setItem("curPage",null);
-            if(sessionStorage.getItem("activeClSection") && sessionStorage.getItem("activeClSection")!='null')
-            {
-                openConsultation('consultation-client');
-                loadConsClient(sessionStorage.getItem("activeClSection"));
-                sessionStorage.setItem("activeClSection","null");
-            }
-        }
-        if( sessionStorage.getItem("curPage") == "gest-reservation" )
-        {
-            loadReservationsTable();
-            sessionStorage.setItem("curPage",null);
-            if(sessionStorage.getItem("activeResSection") && sessionStorage.getItem("activeResSection")!='null')
-            {
-                openConsultation('consultation-reservation');
-                loadConsReservation(sessionStorage.getItem("activeResSection"));
-                sessionStorage.setItem("activeResSection","null");
-            }
-        }
-		clearTimeout(timeFunction)
-	}
-}
-
-
-function checkMainData(){
-	if(mainData)
-	{
-		console.log("debug: mainData is ready");
-        isMainDataReady = true;
-        
-	}
-	else{
-		console.log("debug: mainData is not ready");
-		let timeOut = setTimeout( checkMainData , 10);
-		try{retrieveData();}
-		catch(err){}
-		if(settedTime--<=0){
-			
-		}
-	}
-}
-function retrieveData(){
+    console.log("DEBUG: tableWaiter()");
     
+    checkNotifTable();
+    setTimeout(() => {
+        submitReturnNotif();
+    }, 5000);
+    
+    // Prevent agents from entring "Gestion des employes"
+    if(mainData.personnel.servicePersonnel != "administrateur"){
+        document.querySelectorAll('.only-admin').forEach( el => el.style = "display: none");
+    }
+    if( sessionStorage.getItem("curPage") == "reservation" ){
+        console.log("DEBUG: tableWaiter() running reservation tables");
+        setInterval(loadClientInfo,1000);
+    }
+    if( sessionStorage.getItem("curPage") == "gest-employes" )
+    {
+        console.log("DEBUG: tableWaiter() running gest-employes tables");
+        loadEmpTable();
+    }
+    if( sessionStorage.getItem("curPage") == "gest-voitures" ){
+        console.log("DEBUG: tableWaiter() running gest-voitures tables");
+        loadCarsTable();
+        loadMonthsTable((new Date()).getUTCFullYear());
+        if(sessionStorage.getItem("activeVoSection") && sessionStorage.getItem("activeVoSection")!='null')
+        {
+            openConsultation('consultation-voiture');
+            loadConsVoiture(sessionStorage.getItem("activeVoSection"));
+            sessionStorage.setItem("activeVoSection","null");
+        }
+    }
+    if( sessionStorage.getItem("curPage") == "gest-clients" )
+    {
+        console.log("DEBUG: tableWaiter() running gest-clients tables");
+        loadClientsTable();
+        if(sessionStorage.getItem("activeClSection") && sessionStorage.getItem("activeClSection")!='null')
+        {
+            openConsultation('consultation-client');
+            loadConsClient(sessionStorage.getItem("activeClSection"));
+            sessionStorage.setItem("activeClSection","null");
+        }
+    }
+    if( sessionStorage.getItem("curPage") == "gest-reservation" )
+    {
+        console.log("DEBUG: tableWaiter() running gest-reservation tables");
+        loadReservationsTable();
+        if(sessionStorage.getItem("activeResSection") && sessionStorage.getItem("activeResSection")!='null')
+        {
+            openConsultation('consultation-reservation');
+            loadConsReservation(sessionStorage.getItem("activeResSection"));
+            sessionStorage.setItem("activeResSection","null");
+        }
+    }
+}
+function checkMainData(){
+    isMainDataReady = false;
+    mainData = null;
+    let periodTime = setInterval(function(){
+        if(mainData)
+        {
+            console.log("debug: mainData is ready");
+            isMainDataReady = true;
+            clearInterval(periodTime);
+            tableWaiter();
+            return true;
+        }
+        else{
+            console.log("debug: mainData is not ready");
+            retrieveData();
+        }
+    }, 10);
+}
+
+let retrieveData = function (){    
     // call ajax
     var ajax = new XMLHttpRequest();
     var method = "GET";
@@ -131,6 +140,68 @@ function addSupllies(mainData){
     };
     let agenceSupllies = {
         listReservation : loadReservationList(),
+        
+        // Retourn la voiture
+        getVoiture: function(codeVoiture){
+            let listVoiture = mainData.agence.voiture.list;
+            for(let i = 0; i < listVoiture.length; i++)
+                if( listVoiture[i].codeVoiture == codeVoiture )
+                    return listVoiture[i];
+            return null;
+        },
+
+        // Retourn la reservation
+        getReservation: function(codeReservation){
+            let listVoiture = mainData.agence.voiture.list;
+            for(let i = 0; i < listVoiture.length; i++)
+                for(let j = 0; j < listVoiture[i].reservation.list.length; j++)
+                    if( listVoiture[i].reservation.list[j].codeReservation == codeReservation )
+                        return listVoiture[i].reservation.list[j];
+            return null;
+        },
+        
+        // Retourn le paiement
+        getPayment: function(codePaiement){
+            let listVoiture = mainData.agence.voiture.list;
+            for(let i = 0; i < listVoiture.length; i++)
+                for(let j = 0; j < listVoiture[i].reservation.list.length; j++)
+                    for(let k = 0; k < listVoiture[i].reservation.list[j].paiement.list.length; k++)
+                        if( listVoiture[i].reservation.list[j].paiement.list[k].codePaiement == codePaiement )
+                            return listVoiture[i].reservation.list[j].paiement.list[k];
+            return null;
+        },
+
+        // Get list of all reservation with status "ancien" and not yet payed
+        getNotPayedRes : function(target){
+            let output = Array() ;
+            switch(target){
+                case "old" : {this.listReservation.forEach( res => {
+                    if( res.checkPayment() != "payé" && res.etatReservationAtt() == "Ancien" ){
+                        output.push( res );
+                    }
+                });
+                break;}
+
+            }
+            return output;
+        },
+        // Return list of reservation with status "En core" and needs alert of return
+        getAlertRes : function(){
+            let output = Array();
+            this.listReservation.forEach( reservation => {
+                let dateRetour = (new Date(reservation.dateRetourReservation)).getTime()/(3600*24*1000);
+                let toDay = (new Date()).getTime()/(3600*24*1000);
+                if(reservation.etatReservationAtt() == "En cours" && (dateRetour - toDay <= reservation.alertReservation))
+                    output.push(reservation);
+            });
+            return output;
+        },
+        // Return personnel based on a reservation code
+        getPersonnel : function(target, codeReservation){
+            switch(target){
+                case "reservation" : return mainData.agence.personnel[mainData.agence.contrat[mainData.agence.getReservation(codeReservation).codeContrat].codePersonnel];
+            }
+        }
     };
     Object.assign(mainData.agence,agenceSupllies);
     
@@ -160,6 +231,27 @@ function addSupllies(mainData){
         //Load free cars
         freeCarsList : function(){
             return mainData.agence.voiture.list.map( (voiture) => voiture.checkReservationState()=="libre"? voiture:null )
+        },
+        // Get corespondant car based on a "vidange"
+        getVoiture : function(target, code){
+            let output = null;
+            switch(target){
+                case "reservation" : {
+                    output = mainData.agence.getVoiture(mainData.agence.getReservation(code).codeVoiture);
+                    break;
+                };
+                case "vidange" : {
+                    this.list.forEach( voiture => {
+                        voiture.vidange.list.forEach( vidange => {
+                            if( vidange.codeVidange == code )
+                                output = voiture;
+                        } );
+                    } )
+                    break;
+                };
+                default : return null;
+            }
+            return output;
         }
     };
     Object.assign(mainData.agence.voiture,voitureSupllies);
@@ -284,10 +376,62 @@ function addSupllies(mainData){
             output.reservationNumber += output.list[11].resNumber;
             output.revenue += output.list[11].revenue;
             return output;
+        },
+        // Get details about "Vidange"
+        getVidDetail : function(){
+            let syncVid = ( this.vidange.list.length > 0 )? this.vidange.list[this.vidange.list.length - 1] : 0;
+            let duree = parseFloat(syncVid.dureeVidange);
+            let kilometrage = parseFloat(this.kilometrageVoiture);
+            let dureeActuel = parseFloat(syncVid.dureeActuelVidange);
+            let alert = parseFloat(syncVid.alertVidange);
+            let output = {
+                codeVidange: syncVid.codeVidange,
+                typeVid: duree,
+                restVid: duree - kilometrage + dureeActuel,
+                alertVid: alert,
+                travledKilos : kilometrage - dureeActuel,
+                needVid : ( kilometrage - dureeActuel >= duree  ),
+                needAlert : ( duree - kilometrage + dureeActuel <= alert),
+            };
+            return output;
         }
     };
+    let paymentSupllies = {
+        getPayDetail : function(){
+            let reservation = mainData.agence.getReservation(this.codeReservation);
+            let dateDepart = new Date(reservation.dateDepartReservation);
+            let dateRetour = new Date(reservation.dateRetourReservation);
+            let nbrJour = (dateRetour.getTime() - dateDepart.getTime())/(24*3600*1000);
+            let listPayment = reservation.paiement.list;
+            let i;
+            let lastPayment;
+            for( i = 0; i < listPayment.length; i++){
+                if( listPayment[i].codePaiement == this.codePaiement )
+                    break;
+            }
+            
+            if(i > 0)
+                lastPayment = listPayment[i-1].avancePaiement;
+            else lastPayment = 0;
+            // console.log("Debug getPayDetail()| lastPayment: "+lastPayment+"| i : "+i);       
+            let output = {
+                nombreJour: nbrJour,
+                total: this.totalPaiement,
+                prixParJour: this.totalPaiement/nbrJour,
+                totalPayed: this.avancePaiement,
+                rest: this.totalPaiement - this.avancePaiement,
+                curPay: this.avancePaiement - lastPayment,
+            };
+            return output;
+        }
+    }
     mainData.agence.voiture.list.forEach(voiture => {
         Object.assign(voiture,reservationSupllies);
+        voiture.reservation.list.forEach( reservation => {
+            reservation.paiement.list.forEach( paiement => {
+                Object.assign(paiement,paymentSupllies);
+            } );
+        } );
     });
     
 
@@ -311,6 +455,8 @@ function addSupllies(mainData){
         }
     };
     mainData.agence.client.list.forEach( client => {Object.assign(client,clientSupllies)} );
+
+
     let clientObjSupllies = {
         getClient : function(identite){
             for( let i = 0; i < this.list.length; i++)
@@ -320,4 +466,18 @@ function addSupllies(mainData){
         }
     }
     Object.assign(mainData.agence.client,clientObjSupllies);
+
+    let empSupllies = {
+        // This function will return true if a notifacation of a specified table "target" with "code" exists
+        isNotifExists : function(target, code){
+            let listNotif = this.notification.list;
+            let output = false;
+            listNotif.forEach( notif => {
+                if( notif.nomRefTableNotification == target && notif.codeRefTableNotification == code )
+                    output = true;
+            } );
+            return output;
+        }
+    };
+    Object.assign(mainData.personnel, empSupllies);
 }

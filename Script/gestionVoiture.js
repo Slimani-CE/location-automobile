@@ -40,53 +40,116 @@ function loadConsVoiture(codeVoiture){
     console.log("DEBUG: loadConsVoiture() | codeVoiture: "+codeVoiture);
     if( !codeVoiture )
         codeVoiture = document.getElementById("vo-codeVoiture").value;
-    let voiture;
-    for(let i = 0; i < mainData.agence.voiture.list.length; i++)
-        if( mainData.agence.voiture.list[i].codeVoiture == codeVoiture )
-            voiture = mainData.agence.voiture.list[i];
+    let voiture = mainData.agence.getVoiture(codeVoiture);
 
+    let codeVoitureDiv = document.querySelector("#cons-Voiture"); codeVoitureDiv.setAttribute("data-codeVoiture", codeVoiture)
     let vo_marque = document.getElementById("vo-marque"); vo_marque.value = voiture.marqueVoiture ;
     let vo_model = document.getElementById("vo-model"); vo_model.value = voiture.modelVoiture ;
     let vo_dateCirculaire = document.getElementById("vo-dateCirculaire"); vo_dateCirculaire.value = voiture.dateCirculaireVoiture ;
     let vo_kilometrage = document.getElementById("vo-kilometrage"); vo_kilometrage.value = voiture.kilometrageVoiture ;
-    let vo_kilometrageVidVoiture = document.getElementById("vo-kilometrageVidVoiture"); vo_kilometrageVidVoiture.value = voiture.kilometrageVidVoiture ;
     let vo_status = document.getElementById("vo-status"); vo_status.value = voiture.checkReservationState() ;
     let vo_carburant = document.getElementById("vo-carburant"); vo_carburant.value = voiture.carburantVoiture ;
     let vo_prixParJour = document.getElementById("vo-prixParJour"); vo_prixParJour.value = voiture.prixParJourVoiture ;
     let vo_codeVoiture = document.getElementById("vo-codeVoiture"); vo_codeVoiture.value = voiture.codeVoiture ;
-
+    loadVidData();
 }
 // Open "vidange" form
 function openVidForm(){
     let ajouteBtn = document.getElementsByClassName("ajoute-btn")[0];
     let engBtn = document.getElementsByClassName("vid-footer")[0];
     let nvVidange = document.getElementsByClassName("nv-vidange")[0];
+    let closeVidBtn = document.getElementsByClassName("close-btn")[0];
+    let form = document.getElementById("newVidForm");
+    let listInputs = form.querySelectorAll(".vd-input");
+    let codeVoiture = document.querySelector("#cons-Voiture").getAttribute("data-codeVoiture");
+
     ajouteBtn.setAttribute("class","ajoute-btn hidden");
     engBtn.setAttribute("class","vid-footer");
     nvVidange.setAttribute("class","nv-vidange");
+    // Set default value of "dureeActuelVidange"
+    let kiloActuel = form.querySelector("#dureeActuelVidange").value = mainData.agence.getVoiture(codeVoiture).kilometrageVoiture;
+    
+    // Close vid form
+    closeVidBtn.addEventListener("click", function(){
+        ajouteBtn.setAttribute("class","resp-btn ajoute-btn");
+        engBtn.setAttribute("class","vid-footer hidden");
+        nvVidange.setAttribute("class","nv-vidange hidden");
+        // Reset inputs
+        listInputs.forEach( input => {
+            input.value = null;
+            input.style = null;
+        });
+    });
+    
 }
-// Open "vidange" form
-function closeVidForm(){
-    let ajouteBtn = document.getElementsByClassName("ajoute-btn")[0];
-    let engBtn = document.getElementsByClassName("vid-footer")[0];
-    let nvVidange = document.getElementsByClassName("nv-vidange")[0];
-    ajouteBtn.setAttribute("class","resp-btn ajoute-btn");
-    engBtn.setAttribute("class","vid-footer hidden");
-    nvVidange.setAttribute("class","nv-vidange hidden");
+// Load "Vidange" data
+function loadVidData(){
+    let table = document.getElementsByClassName("vid-table")[0];
+    let codeVoiture = document.querySelector("#cons-Voiture").getAttribute("data-codeVoiture");
+    let voiture = mainData.agence.getVoiture(codeVoiture);
+    let detailVid = voiture.getVidDetail();
+    table.innerHTML = "";
+    if( voiture.vidange.list.length ){
+        voiture.vidange.list.forEach( vidange => {
+            let styleTr = null;
+            if(vidange.codeVidange == detailVid.codeVidange)
+                styleTr = `style="background-color: ${(detailVid.needVid? "tomato":(detailVid.needAlert? "orange" : "#70AD47"))}"` ;
+            table.innerHTML = `
+                <tr ${styleTr} >
+                    <td>${vidange.dateVidange}</td>
+                    <td>${vidange.dureeVidange} KM</td>
+                    <td>${vidange.prixVidange} DH</td>
+                    <td>${detailVid.needVid || vidange.codeVidange != detailVid.codeVidange? "Terminé" : "+ "+detailVid.restVid+" KM"}</td>
+                </tr>
+            ` + table.innerHTML;
+        } );
+        table.innerHTML = `
+        <tr>
+            <th>Date de vidange</th>
+            <th>Type</th>
+            <th>Prix</th>
+            <th>État</th>
+        </tr>
+        ` + table.innerHTML;
+    }
+    else{
+        table.innerHTML = "<div class='emptyTableMsg'>Aucun vidange n'a été fait pour cette voiture</div>";
+    }
 }
+
+
 // submit "vidange" data to database
 function submitVidData(){
-    codeVoiture = document.getElementById("vo-codeVoiture").value;
-    dateVidange = document.getElementById("dateVidange").value;
-    dureeVidange = document.getElementById("dureeVidange").value;
-    dureeActuelVidange = document.getElementById("dureeActuelVidange").value;
-    prixVidange = document.getElementById("prixVidange").value;
-    alertVidange = document.getElementById("alertVidange").value;
-    if(codeVoiture && dateVidange && dureeVidange && dureeActuelVidange && prixVidange && alertVidange)
-        window.open("../agence/ajouteVidange.php?"+`codeVoiture=${codeVoiture}&dateVidange=${dateVidange}&dureeVidange=${dureeVidange}&dureeActuelVidange=${dureeActuelVidange}&prixVidange=${prixVidange}&alertVidange=${alertVidange}`);
+    let form = document.getElementById("newVidForm");
+    let listInputs = form.querySelectorAll(".vd-input");
+    let codeVoiture = document.querySelector("#cons-Voiture").getAttribute("data-codeVoiture");
+    let codeVoitureVid = document.getElementById("codeVoitureVid").value = codeVoiture;
+    let checkHandler = true;
+    let errorStyle = "border-left: 5px solid rgb(202, 86, 65);outline:none;";
+    let correctStyle = "border-left: 5px solid #45af69;outline:none;";
 
-    // loadConsVoiture(vo_codeVoiture.value);
-    // showConfirmBtn();
+    // check if all inputs are not empty
+    listInputs.forEach( input => {
+        // If input is not empty or it's not required
+        if( input.value || !input.required )
+        input.style = correctStyle;
+        // Otherwise
+        else{
+            input.style = errorStyle;
+            checkHandler = false;
+        }
+    } );
+
+    // Check form validity and submit data
+    if( form.checkValidity() ){
+        runIFrame("newVidDataSubmit", "#", 5);
+        form.submit();
+        setTimeout(checkMainData,1000);
+        setTimeout(function(){loadConsVoiture(codeVoiture);},2000);
+        setTimeout(submitNotifData,5000);
+        // close vid form
+        document.getElementsByClassName("close-btn")[0].click();
+    }
 }
 //hidde modification botton and show confirmation btns
 function showConfirmBtn(){
@@ -97,8 +160,10 @@ function showConfirmBtn(){
     if( btn.getAttribute("class") == "input-div modDon-div hidden" ){
         btn.setAttribute("class","input-div modDon-div");
         confirm.setAttribute("class","input-div conf-btn hidden");
-        for(let i = 0; i < listInput.length; i++)
+        for(let i = 0; i < listInput.length; i++){
             listInput[i].disabled = true;
+            listInput[i].style = null;
+        }
     }
     // Give user the access to change data
     else{
@@ -108,10 +173,35 @@ function showConfirmBtn(){
             listInput[i].disabled = false;
     }
 }
-// submit new car's data to database
+// submit car's new data to database
 function submitCarData(){
-    let btn = document.getElementById("sub-vo-btn");
-    btn.click();
+    let form = document.getElementById("carDataForm");
+    let listInput = form.querySelectorAll(".vo-input");
+    let errorStyle = "border-left: 5px solid rgb(202, 86, 65);outline:none;";
+    let correctStyle = "border-left: 5px solid #45af69;outline:none;";
+
+    // Check if all inputs are not empty
+    listInput.forEach( input => {
+        // If input is not empty or is not required
+        if( input.value || !input.required){
+            input.style = correctStyle;
+        }
+        // otherwise
+        else{
+            input.style = errorStyle;
+            checkHandler = false;
+        }
+    } );
+
+    // Check if form is valide
+    if( form.checkValidity() ){
+        let noModBtn = document.getElementById("noModBtn");
+        runIFrame("carNewDataForm", "#", 5);
+        form.submit();
+        setTimeout(function(){checkMainData()},1000);
+        setTimeout(function(){noModBtn.click()},2000);
+        setTimeout(function(){submitNotifData()},5000);
+    }
 }
 // loadCarsTable() will load all cars table
 function loadCarsTable(){
@@ -167,7 +257,7 @@ function loadMonthsTable(year){
     </tr>
     `;
     mainData.agence.voiture.list.forEach( voiture =>{
-        let voitureInnerHtml = "<th>"+voiture.marqueVoiture+"</th>";
+        let voitureInnerHtml = `<th>${voiture.marqueVoiture} <br> ${voiture.immatriculationVoiture}</th>`;
         let data = voiture.getResInfoByYear(year);
         data.list.forEach( item => {
             voitureInnerHtml += `<td style="color: ${ (item.resNumber)?"tomato":"black"}">${item.resNumber}</td>`;
@@ -235,4 +325,14 @@ function carsSearchBarListner(){
     filterBy(checkedStatus,"car-status","car","strict");
     // Check table length
     checkCarsTableLength();
+}
+
+// Submit new car data
+function submitNewCarData(form){
+    // Check form validity
+    if( form.checkValidity() ){
+        runIFrame("newCarSubmitPage", "#", 5);
+        setTimeout(function(){checkMainData();submitNotifData();}, 2000);
+        closePopUp(form.children[0]);
+    }
 }

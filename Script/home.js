@@ -1,3 +1,60 @@
+// Contact functions
+function submitContactForm(form){
+    let listInputs = form.querySelectorAll(".input");
+    let checkHandler = true;
+    let correctStyle = "border-left: 4px solid rgb(69, 175, 105)";
+    let errorStyle = "border-left: 4px solid rgb(202, 86, 65)";
+    console.log(listInputs);
+    // Check if all inputs are not empty
+    listInputs.forEach(input => {
+        if(input.value)
+            input.style = correctStyle;
+        else{
+            input.style = errorStyle;
+            checkHandler = false;
+        }
+    });
+
+    if( checkHandler && form.checkValidity()){
+        form.submit();
+    }
+}
+function resetConBtn(form){
+    let listInputs = form.querySelectorAll(".input");
+    // Reset style
+    listInputs.forEach( input => {
+        input.style = null;
+    });
+    // Reset inputs
+    form.reset();
+}
+// services slides
+let selectedSect = 1;
+let runSlide = function(btn){
+    let listBtn = document.querySelectorAll(".service-btn");
+    let sectToCheck = document.querySelector("#"+btn.getAttribute("data-slideId"));
+    let listSect = document.querySelectorAll(".service-content");
+    selectedSect = parseInt(btn.getAttribute("data-slideId").split("slide")[1]);
+    // Remove checks from all btns
+    listBtn.forEach(lBtn => {
+        lBtn.setAttribute("class", "service-btn");
+    });
+    // Remove Checks from all sects
+    listSect.forEach( sect => {
+        sect.setAttribute("class", "service-content hidden");
+    });
+    // check this btn
+    btn.setAttribute("class", "service-btn checked");
+    // check this sect
+    sectToCheck.setAttribute("class", "service-content");
+}
+setInterval(function(){
+    selectedSect++;
+    if(selectedSect > 4) 
+        selectedSect = 1;
+    console.log(document.getElementById(`slideBtn${selectedSect}`));
+    runSlide(document.getElementById(`slideBtn${selectedSect}`));
+}, 5000);
 // launchSection() will change focus between menu items
 function launchSection(item){
     let items = document.getElementsByClassName("menu-item");

@@ -29,6 +29,7 @@ function loadConsReservation(codeReservation){
         window.location.href = `./updateDb.php?codeReservation=${reservation.codeReservation}&etatReservation=${((resStatus.value=="Ancien")? "libre":"loué")}`;
         // sessionStorage.setItem("activeResSection",reservation.codeReservation);
     });
+    generatePayTable(codeReservation);
 }
 
 // change reservation status
@@ -52,22 +53,6 @@ function changeResStatus(){
             yesBtn.addEventListener("click",function(){
                 decRetour.setAttribute("class","input-div dec-retour-div hidden");
                 contRetour.setAttribute("class","cont-retour");
-                // Add new return 
-                yesEngBtn.addEventListener("click",function(){
-                    let  etatRetour= document.getElementById("res-etatActuel").value;
-                    let dateEntreRetour = document.getElementById("res-dateRetour").value;
-                    if(dateEntreRetour && etatRetour)
-                    {
-                        window.open(`ajouteRetour.php?dateEntreRetour=${dateEntreRetour}&etatRetour=${etatRetour}&codeReservation=${codeReservation}`,"_self");
-                        // sessionStorage.setItem("activeResSection",codeReservation);
-                        // window.open(`ajouteRetour.php`);
-                        // console.log("DEBUG: yesEngBtn.addEventListener()");
-                    }
-                    // else
-                    // {
-                        // this.removeEventListener("click");
-                    // }
-                })
                 noEngBtn.addEventListener("click",function(){
                     contRetour.setAttribute("class","cont-retour hidden");
                     loadConsReservation(codeReservation);
@@ -190,4 +175,175 @@ function checkReservationsTableLength(){
             emptyReservationsTable.setAttribute("class","emptyReservationsTable hidden");
         }
     }
+}
+
+// Generate payment table
+function generatePayTable(codeReservation){
+    let table = document.getElementsByClassName("pay-table")[0];
+    let reservation = mainData.agence.getReservation(codeReservation);
+    let listPay = reservation.paiement.list;
+    let personnel = mainData.agence.personnel[mainData.agence.contrat[reservation.codeContrat].codePersonnel];
+    table.innerHTML = "";
+    listPay.forEach( payment => {
+        table.innerHTML = `
+        <tr id="pay-${payment.codePaiement}">
+            <td>${(new Date(payment.datePaiement)).toDateString()}</td>
+            <td>${payment.getPayDetail().total} MAD</td>
+            <td>${payment.getPayDetail().totalPayed} MAD</td>
+            <td>${payment.getPayDetail().curPay} MAD</td>
+            <td>${payment.getPayDetail().rest} MAD</td>
+            <td class="payConst">
+                <div class="payFact">
+                    <i class="fa-solid fa-file-lines" onclick="window.open('facture.php?personnel=${personnel.prenomPersonnel+" "+personnel.nomPersonnel}&code=${payment.codePaiement}','_blank')" title="Consulter la facture"></i>
+                </div>
+                <div class="payMod">
+                    <i class="fa-solid fa-pen-to-square" title="Modifier"></i>
+                </div>
+                <div class="payRemove">
+                    <i class="fa-solid fa-trash-can" title="Deleter"></i>
+                </div>
+            </td>
+        </tr>
+        ` + table.innerHTML;
+    } );
+    table.innerHTML = `
+    <tr>
+        <th>Date de paiement</th>
+        <th>Total à payer</th>
+        <th>Total payé</th>
+        <th>Montant facturé</th>
+        <th>Rest</th>
+        <th>Facture</th>
+    </tr>
+    ` + table.innerHTML;
+}
+
+
+// Payment methods. This function will run when we click on "Ajouter un paiement"
+function submitPay(payDiv){
+    let resPay = payDiv.getElementsByClassName("res-pay")[0];
+    let noConPay = payDiv.getElementsByClassName("noConPay")[0];
+    let yesConPay = payDiv.getElementsByClassName("yesConPay")[0];
+    let payInputList = payDiv.querySelectorAll(".pay-input");
+    let codeReservation = document.getElementById("cons-reservation").getAttribute("data-code-reservation");
+    let errorStyle = "border-left: 5px solid rgb(202, 86, 65);outline:none;box-shadow:none";
+    let correctStyle = "border-left: 5px solid #45af69;outline:none;box-shadow:none";
+    let totalPaiement = payDiv.querySelector("#pay-totalPaiement");
+    let avancePaiement = payDiv.querySelector("#pay-avancePaiement");
+    let etatPaiement = payDiv.querySelector("#pay-etatPaiement");
+    let methodePaiement = payDiv.querySelector("#pay-methodePaiement");
+    let datePaiement = payDiv.querySelector("#pay-datePaiement");
+    let reservation = mainData.agence.getReservation(codeReservation);
+    
+    let submitFunction = function(){
+        let checkHandler = true;
+        payInputList.forEach(input => {
+            if( !input.value ){
+                input.style = errorStyle;
+                checkHandler = false
+            }
+            else input.style = correctStyle;
+        });
+        
+        if(checkHandler){
+            let subTotalPaiement = totalPaiement.value.split("MAD")[0];
+            let subAvancePaiement = avancePaiement.value.split("MAD")[0];
+            let url = `../agence/ajoutePaiement.php?codeReservation=${codeReservation}&totalPaiement=${subTotalPaiement}&avancePaiement=${subAvancePaiement}&etatPaiement=${etatPaiement.value}&methodePaiement=${methodePaiement.value}&datePaiement=${datePaiement.value}`;
+            runIFrame("submitNewPayDataPage", url, 5);
+            setTimeout(checkMainData,1000);
+            setTimeout(function(){generatePayTable(codeReservation)},2000);
+            setTimeout(submitNotifData,5000);    
+        }
+    }
+
+    // Calculate values for auto generated inputs using a periodic functional
+    let settedFunction = setInterval(function(){
+        let facturePaiement = (( payDiv.querySelector("#pay-facturePaiement").value != "" )? parseFloat(payDiv.querySelector("#pay-facturePaiement").value):0);
+        // Get last payment
+        let lastPayment = reservation.paiement.list[reservation.paiement.list.length - 1].getPayDetail();
+        let diffTotal = facturePaiement - lastPayment.rest;
+        totalPaiement.value = lastPayment.total + " MAD";
+        avancePaiement.value = parseFloat(lastPayment.totalPayed) + facturePaiement + " MAD";
+        etatPaiement.value = ((diffTotal == 0)? "payé" : ( (diffTotal > 0)? "+"+diffTotal+" MAD" : diffTotal+" MAD" ));
+
+    },100);
+
+    // Display payment input div
+    resPay.setAttribute("class","res-info res-pay");
+    
+    // Hidde payment input div and stop periodic function
+    noConPay.addEventListener("click",function(){
+        yesConPay.removeEventListener("click", submitFunction);
+        resPay.setAttribute("class","res-info res-pay hidden");
+        clearTimeout(settedFunction);
+    });
+
+    // check if inputs are not empty and Submit data
+    yesConPay.addEventListener("click",submitFunction);
+}
+
+
+// methods de retour
+function submitRetour(){
+    let form = document.getElementById("retourDataForm");
+    let codeReservation = parseInt(document.getElementById("cons-reservation").getAttribute("data-code-reservation"));
+    let listInput = form.querySelectorAll(".ret-input");
+    let yesSubmit = form.querySelector(".yes-eng-btn");
+    let noSubmit = form.querySelector(".no-eng-btn");
+    let errorStyle = "border-left: 5px solid rgb(202, 86, 65);outline:none;";
+    let correctStyle = "border-left: 5px solid #45af69;outline:none;";
+    let reservationInput = form.querySelector("#res-codeReservation").value = codeReservation;
+    let voiture = mainData.agence.voiture.getVoiture("reservation", codeReservation);
+    let reservation = mainData.agence.getReservation(codeReservation);
+    let voitureInput = form.querySelector("#res-codeVoiture").value = voiture.codeVoiture;
+    let KiloActuel = form.querySelector("#KiloActuel").innerHTML = voiture.kilometrageVoiture;
+    let KiloActuelInput = form.querySelector("#res-kilometrageActuel");
+    
+    // Define function that will check validity of form and submit data
+    let submitFunction = function(){
+        let checkHandler = true;
+        listInput.forEach( input => {
+            if( input.value || !input.required )
+                input.style = correctStyle;
+                else{
+                    checkHandler = false
+                    input.style = errorStyle;
+            }
+        } );
+
+        if( checkHandler && form.checkValidity() ){
+            runIFrame("retourDataSubmitPage", "#", 5);
+            setTimeout(checkMainData,1000);
+            setTimeout(function(){loadConsReservation(codeReservation);submitReturnNotif();},2000);
+            setTimeout(submitNotifData,5000);
+
+            form.submit();
+        }
+    };
+
+    // Change autogenerated inputs
+    let changeAutoGenerated = setInterval(function(){
+        let kiloParcourue = form.querySelector("#res-kilometrageParcourue");
+        if( isNaN(KiloActuelInput.value) )
+            kiloParcourue.value = null;
+        else
+            kiloParcourue.value = parseFloat(KiloActuelInput.value) - parseFloat(voiture.kilometrageVoiture)
+
+        let resEtatPaiement = form.querySelector("#res-etatPaiement").value = reservation.checkPayment();
+    }, 1000);
+
+    // Reset inputs and style and remove Event listener from yesSubmit
+    noSubmit.addEventListener("click", function(){
+        reservationInput.value = null;
+        voitureInput.value = null;
+        KiloActuel.innerHTML = null;
+        clearInterval(changeAutoGenerated);
+        yesSubmit.removeEventListener("click", submitFunction)
+        listInput.forEach( input => {
+            input.style = null;
+        } );
+    });
+
+    yesSubmit.addEventListener("click", submitFunction);
+
 }

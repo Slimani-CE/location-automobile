@@ -9,7 +9,7 @@ function chartReservationNbr(){
 	let year = document.getElementById("stq-garage-year");
 	let thisYear = year.innerHTML;
 	let lastYear = (parseInt(year.innerHTML)-1).toString();
-	labels = mainData.agence.voiture.list.map( function(item){ return item.marqueVoiture } );
+	labels = mainData.agence.voiture.list.map( function(item){ return item.immatriculationVoiture } );
 	let gradient = ctx.createLinearGradient(0, 0, 0, 400);
 	gradient.addColorStop(0, 'rgba(58,123,250,1)');
 	gradient.addColorStop(1, 'rgba(0,210,255,0.3)');
@@ -87,7 +87,7 @@ function reservationBasedOn(){
 	gradient.addColorStop(1, 'rgba(0,210,255,0.3)');
 	let colorDeg = 0;
 	dateValue = mainData.agence.voiture.list.map( voiture => voiture.getResInfoByYear(thisYear).reservationNumber );
-	labels = mainData.agence.voiture.list.map( voiture => voiture.marqueVoiture );
+	labels = mainData.agence.voiture.list.map( voiture =>voiture.immatriculationVoiture);
 
 	const data = {
 		labels,
